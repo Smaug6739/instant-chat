@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika:wght@300&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  color: #fff;
+  background: black;
+}
+
+body {
+  background-color: #31414a;
+  color: #9ca6b5;
+  font-family: "Signika", sans-serif;
+}
+
+::-webkit-scrollbar {
+  background-color: #212831;
+  height: 5px;
+  width: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3c6382;
+  border-radius: 10px;
+}
+
+/*# sourceMappingURL=main.css.map */
