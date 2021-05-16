@@ -41,10 +41,11 @@ export default {
       this.$emit("updateRoom", { id: to.params.room });
     },
     channel: function () {
-      this.first = true;
       this.messages = [];
       this.page = 1;
       this.getMessages();
+      this.noScroll = false;
+      this.lastScroll = null;
     },
   },
   methods: {
