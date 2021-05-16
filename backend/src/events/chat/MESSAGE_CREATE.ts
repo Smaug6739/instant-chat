@@ -5,6 +5,7 @@ const Chat = new ChatClass();
 export async function run(server: any, socket: any, data: IObject, auth: IObject) {
 	//const roster = server.io.sockets.adapter.rooms
 
+
 	Chat.postMessage(
 		`01`,
 		auth.userId,

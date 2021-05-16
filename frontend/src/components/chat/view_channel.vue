@@ -42,6 +42,7 @@ export default {
     },
     channel: function () {
       this.first = true;
+      this.messages = [];
       this.page = 1;
       this.getMessages();
     },
@@ -72,7 +73,6 @@ export default {
     async getMessages() {
       console.log("get");
       this.isLoadgin = true;
-      if (this.first) this.messages = [];
       const responce = await fetch(
         `${this.$store.state.host}api/v1/chat/messages/${this.channel.id}/${this.page}`,
         {
@@ -82,17 +82,21 @@ export default {
       );
       const result = await responce.json();
       if (result && result.status === "success") {
-        let newArray = this.messages;
+        let newArray = [];
         for (const msg of result.result) {
           newArray.push({ content: msg.content });
         }
+        for (const msg of this.messages) {
+          newArray.push(msg);
+        }
+        console.log(newArray.length);
         this.messages = newArray;
       }
       this.isLoadgin = false;
     },
   },
   beforeMount() {
-    this.getMessages();
+    this.getMessages("first");
   },
   async updated() {
     if (!this.noScroll) {
@@ -106,8 +110,10 @@ export default {
   },
   mounted() {
     this.$socket.on("MESSAGE_CREATE", (data) => {
-      if (data.channel === this.channel.id)
+      if (data.channel === this.channel.id) {
+        this.noScroll = false;
         this.messages.push({ content: data.message });
+      }
     });
   },
 };

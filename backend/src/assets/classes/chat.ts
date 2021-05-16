@@ -61,7 +61,7 @@ export class ChatClass {
 			const pageNumber = parseInt(page);
 			if (isNaN(pageNumber)) return reject(new TypeError('Invalid page number'));
 			const skip = (pageNumber * 25) - 25;
-			db.query('SELECT * FROM messages WHERE channel_id = ?  ORDER BY id DESC LIMIT 25 ', [roomId, skip], (err, result) => {
+			db.query('SELECT * FROM messages WHERE channel_id = ? ORDER BY id DESC LIMIT 25 OFFSET ?', [roomId, skip], (err, result) => {
 				if (err) reject(err)
 				resolve(result.reverse());
 			})
