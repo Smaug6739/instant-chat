@@ -4,13 +4,23 @@ import { hasPermissions } from '../../utils/functions';
 
 export class ChatClass {
 
-	public getChats(page: string): Promise<IObject> {
+	public rooms = new Map()
+	constructor() {
+		db.query('SELECT * FROM channels', (err, result) => {
+			if (err) throw err;
+			for (const room of result) {
+				this.rooms.set(room.id, room)
+			}
+		})
+	}
+
+	public getChats(): Promise<IObject> {
 		return new Promise((resolve, reject) => {
-			if (!page) return reject(new Error('Missing page parameter'));
-			const pageNumber = parseInt(page);
-			if (isNaN(pageNumber)) return reject(new TypeError('Invalid page number'));
-			const skip = (pageNumber * 9) - 9;
-			db.query('SELECT * FROM channels LIMIT 9 OFFSET ?', [skip], (err, result) => {
+			//if (!page) return reject(new Error('Missing page parameter'));
+			//const pageNumber = parseInt(page);
+			//if (isNaN(pageNumber)) return reject(new TypeError('Invalid page number'));
+			//const skip = (pageNumber * 9) - 9;
+			db.query('SELECT * FROM channels LIMIT 40', (err, result) => {
 				if (err) return reject(err)
 				resolve(result)
 			})

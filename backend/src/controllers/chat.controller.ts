@@ -13,7 +13,7 @@ export function getChat(req: IObject, res: IObject): void {
 		.catch(error => res.json(checkAndChange(error)))
 }
 export function getChats(req: IObject, res: IObject): void {
-	Chat.getChats(req.params.page)
+	Chat.getChats()
 		.then(result => res.status(200).json(checkAndChange(result)))
 		.catch(error => res.json(checkAndChange(error)))
 }

@@ -18,8 +18,8 @@ export default {
     Footer,
   },
   mounted() {
-    this.$socket.on("CONNECTION_ERROR", (err) => {
-      console.log("CONNECTION_ERROR: " + err);
+    this.$socket.on("MESSAGE_CREATE", (msg) => {
+      console.log("Un message a été posté : " + msg);
     });
   },
 };

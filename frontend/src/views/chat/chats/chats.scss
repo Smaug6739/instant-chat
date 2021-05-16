@@ -1,0 +1,41 @@
+.chat {
+  display: flex;
+  .list {
+    width: 25%;
+    background-color: blue;
+    li {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      .container-circle {
+        margin-right: 5px;
+        .circle {
+          width: 40px;
+          display: inline-block;
+          line-height: 0px;
+          border-radius: 50%;
+          border: 2px solid;
+          font-size: 32px;
+          background: brown;
+        }
+        .circle span {
+          display: inline-block;
+          padding-top: 50%;
+          padding-bottom: 50%;
+          margin-left: 8px;
+          margin-right: 8px;
+        }
+        .circle-letter {
+          font-weight: 600;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .chat {
+    width: 75%;
+    padding: 10px;
+    background-color: red;
+  }
+}

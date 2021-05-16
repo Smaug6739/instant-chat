@@ -1,10 +1,9 @@
-import chats from '@/views/chat/chats.vue';
+import chats from '@/views/chat/chats/chats.vue';
 const routes = [
 	{
-
 		path: '/chats',
 		name: 'List of chats',
-		component: () => chats,
+		component: chats,
 		meta: {
 			admin: false,
 			member: false,

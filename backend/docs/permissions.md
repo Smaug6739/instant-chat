@@ -1,4 +1,5 @@
 # Permissions
+
 This is the list of available permissions for members and their values
 
 | Name     | Value    | Description               |
@@ -14,5 +15,4 @@ This is the list of available permissions for members and their values
 * For add the first user with administrator permission you need modify this user in database.
 
 * For add multiples permissions to a user add the values of permissions.
-Exemple : For create user with `ADMINISTRATOR` and `UPDATE_MEMBERS` : `1 + 5 = 5`. So the permissions for the user is 5. 
-  
+Exemple : For create user with `ADMINISTRATOR` and `UPDATE_MEMBERS` : `1 + 5 = 5`. So the permissions for the user is 5.

@@ -16,7 +16,7 @@ Permissions required : None
 
 Code : `200 OK`
 
-**Content examples**
+### Content examples
 
 ```json
 {

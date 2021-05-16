@@ -23,7 +23,7 @@ Permissions required : None
 
 Code : `201 Created`
 
-**Content examples**
+### Content examples
 
 ```json
 {

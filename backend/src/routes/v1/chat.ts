@@ -5,7 +5,7 @@ import auth from '../../middlewares/auth';
 const ChatRouter: Router = Router();
 
 //ChatRouter.post('/', ChatCtrl.createMember);
-ChatRouter.get('/chats/:page', ChatCtrl.getChats);
+ChatRouter.get('/rooms', ChatCtrl.getChats);
 ChatRouter.get('/chat/:chat', ChatCtrl.getChat);
 
 ChatRouter.post('/message', auth, ChatCtrl.postMessage)

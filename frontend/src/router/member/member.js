@@ -9,7 +9,6 @@ const routes = [
 			admin: false,
 			member: false,
 		}
-
 	},
 	{
 		path: '/member/login',

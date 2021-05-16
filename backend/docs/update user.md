@@ -32,7 +32,7 @@ Permissions required : None
 
 Code : `200 OK`
 
-**Content examples**
+### Content examples
 
 ```json
 {
@@ -54,6 +54,7 @@ Code : `200 OK`
     }
 }
 ```
-## Notes 
-If the logged in user tries to update a user other than himself, he needs a permissions level greater than or equal to 3.
 
+## Notes
+
+If the logged in user tries to update a user other than himself, he needs a permissions level greater than or equal to 3.

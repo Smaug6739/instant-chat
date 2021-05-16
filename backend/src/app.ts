@@ -5,15 +5,19 @@ import * as express from 'express';
 import { Server } from "socket.io";
 import { Iconfig, IObject } from './types'
 import { debug } from './utils/functions';
+import { auth } from './events/auth';
+//classes
+import { ChatClass } from './assets/classes/chat';
+const Chat = new ChatClass();
 
-const sessions = new Map();
+//const sessions = new Map();
 
 export class App {
     private app: express.Application;
     public port: number;
     public config: Iconfig;
     public httpServer: any
-    public sessionsMap: Map<string, IObject>
+    //public sessionsMap: Map<string, IObject>
     public io: Server | undefined
     public debug = debug;
     constructor(config: Iconfig) {
@@ -23,7 +27,7 @@ export class App {
         console.log('Starting...')
         this.httpServer = createServer(this.app);
         this.httpServer.listen(this.port);
-        this.sessionsMap = new Map();
+        //this.sessionsMap = new Map();
     }
     private handleRoutes(): void {
         readdirSync(join(__dirname, 'routes')).forEach(dir => {
@@ -57,6 +61,18 @@ export class App {
         });
         this.io = io;
         io.sockets.on('connection', (socket) => {
+            const user = auth(this, socket)
+            const rooms = Chat.rooms;
+            for (const room of rooms) {
+                if (user.status === 'success') {
+                    if (!room[1].permissions && room[1].type == '01') {
+                        socket.join(`01${room[1].id}`)
+                        console.log(`Joined 01${room[1].id}`)
+                    }
+                } else {
+                    console.log('Access denied for user')
+                }
+            }
             readdirSync(join(__dirname, 'events'))
                 .filter(function (file) {
                     return statSync(join(__dirname, 'events', file)).isDirectory();
@@ -68,12 +84,15 @@ export class App {
                         debug('[EVENT_LOADED]', '\x1b[45m', getFileName.infos.event);
                         socket.on(getFileName.infos.event, (data: any) => {
                             debug('[EVENT_RECEVIED]', '\x1b[44m', getFileName.infos.event);
-                            getFileName.run(this, socket, data)
+                            if (getFileName.infos.connection) {
+                                const authUser = auth(this, socket)
+                                if (authUser!.status === 'error') return debug('[EVENT_CONNECTION_ERROR]', '\x1b[41m', `${getFileName.infos.event} : ${authUser!.error}`)
+                                getFileName.run(this, socket, data, authUser)
+                            } else getFileName.run(this, socket, data)
                         });
                     }
                 })
         })
-
     };
     public start(): void {
         this.handleMiddlewares();
@@ -117,5 +136,3 @@ export class App {
 
     }
 }
-
-export { sessions };
