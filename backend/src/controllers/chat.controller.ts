@@ -8,7 +8,7 @@ const Chat = new ChatClass();
 
 
 export function getChat(req: IObject, res: IObject): void {
-	Chat.getChat(req.params.chat)
+	Chat.getChat(req.params.roomId)
 		.then(result => res.status(200).json(checkAndChange(result)))
 		.catch(error => res.json(checkAndChange(error)))
 }
@@ -22,6 +22,12 @@ export function getChats(req: IObject, res: IObject): void {
 /* ******************************************************************** */
 /* ***************************** MESSAGES ***************************** */
 /* ******************************************************************** */
+export function getMessages(req: IObject, res: IObject): void {
+	Chat.getMessages(req.params.roomId, req.params.page)
+		.then(result => res.status(200).json(checkAndChange(result)))
+		.catch(error => res.json(checkAndChange(error)))
+}
+
 export function postMessage(req: IObject, res: IObject): void {
 	Chat.postMessage(
 		req.body.type,

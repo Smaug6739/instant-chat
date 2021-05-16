@@ -12,12 +12,12 @@
 
 body {
   background-color: #31414a;
-  color: #9ca6b5;
+  color: white;
   font-family: "Signika", sans-serif;
 }
 
 ::-webkit-scrollbar {
-  background-color: #212831;
+  background-color: #181b20;
   height: 5px;
   width: 10px;
   border-radius: 10px;

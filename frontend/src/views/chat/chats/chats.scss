@@ -1,8 +1,9 @@
+@import '../../../../public/scss/theme-variables';
 .chat {
   display: flex;
   .list {
     width: 25%;
-    background-color: blue;
+    background-color: $background-element-dark;
     li {
       list-style: none;
       display: flex;
@@ -17,7 +18,7 @@
           border-radius: 50%;
           border: 2px solid;
           font-size: 32px;
-          background: brown;
+          background: #5d4037;
         }
         .circle span {
           display: inline-block;
@@ -34,8 +35,9 @@
     }
   }
   .chat {
+    display: block;
     width: 75%;
     padding: 10px;
-    background-color: red;
+    background-color: $background-element-light ;
   }
 }

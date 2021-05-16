@@ -54,6 +54,20 @@ export class ChatClass {
 		})
 	}
 
+	public getMessages(roomId: string, page: string): Promise<IObject> {
+		return new Promise((resolve, reject) => {
+			if (!roomId) return reject(new Error('Missing room id parameter'));
+			if (!page) return reject(new Error('Missing page parameter'));
+			const pageNumber = parseInt(page);
+			if (isNaN(pageNumber)) return reject(new TypeError('Invalid page number'));
+			const skip = (pageNumber * 25) - 25;
+			db.query('SELECT * FROM messages WHERE channel_id = ?  ORDER BY id DESC LIMIT 25 ', [roomId, skip], (err, result) => {
+				if (err) reject(err)
+				resolve(result.reverse());
+			})
+		})
+	}
+
 	public postMessage(
 		type: string,
 		author: string,
@@ -70,8 +84,8 @@ export class ChatClass {
 			db.query('INSERT INTO messages (type, author, content, attachement, channel_id) VALUES(?,?,?,?,?)', [type, author, content, attachement, channel_id], (err, result) => {
 				if (err) return reject(err)
 				resolve(result)
-			})
-		})
+			});
+		});
 	}
 	public editMessage(
 		user: IUserInfos,

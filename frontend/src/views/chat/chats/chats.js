@@ -8,7 +8,6 @@ export default {
 			chats: null,
 			channel: {
 				id: null,
-				type: null,
 			},
 		};
 	},
@@ -20,12 +19,12 @@ export default {
 		const responce = await fetch(`${this.$store.state.host}api/v1/chat/rooms`);
 		const result = await responce.json();
 		this.chats = result.result;
+		this.channel.id = window.location.href.split('/').reverse()[0]
 	},
 	methods: {
-		viewRoom(id, type) {
+		updateRoom(payload) {
 			this.channel = {
-				id: id,
-				type: type
+				id: payload.id
 			}
 		}
 	}

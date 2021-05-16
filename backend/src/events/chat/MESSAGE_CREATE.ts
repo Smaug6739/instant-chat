@@ -12,7 +12,12 @@ export async function run(server: any, socket: any, data: IObject, auth: IObject
 		'',
 		data.channel.id
 	)
-		.then(() => server.io.to(`01${data.channel.id}`).emit('MESSAGE_CREATE', data.message))
+		.then(() => {
+			server.io.to(`01${data.channel.id}`).emit('MESSAGE_CREATE', {
+				message: data.message,
+				channel: data.channel.id
+			})
+		})
 		.catch((err) => server.debug('[EVENT_ERROR]', '\x1b[41m', err))
 
 }

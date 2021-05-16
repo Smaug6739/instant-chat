@@ -1,7 +1,11 @@
 <template>
-  <div class="view-channel">
-    {{ channel.id }}
-    <div v-if="messages">
+  <div
+    class="view-channel"
+    id="view-channel"
+    v-if="channel.id"
+    @scroll="loadMessages"
+  >
+    <div v-if="messages.length">
       <ul>
         <li v-for="message of messages" :key="message">
           <p>{{ message.content }}</p>
@@ -13,6 +17,7 @@
       class="form-control"
       @keyup.enter="sendMessage"
       id="form-message"
+      placeholder="Send a message"
     />
   </div>
 </template>
@@ -24,43 +29,94 @@ export default {
   },
   data() {
     return {
-      messages: null,
+      messages: [],
+      isLoadgin: false,
+      page: 1,
+      noScroll: false,
+      lastScroll: null,
     };
+  },
+  watch: {
+    $route(to) {
+      this.$emit("updateRoom", { id: to.params.room });
+    },
+    channel: function () {
+      this.first = true;
+      this.page = 1;
+      this.getMessages();
+    },
   },
   methods: {
     sendMessage() {
-      const data = document.getElementById("form-message").value;
+      let data = document.getElementById("form-message").value;
       if (data) {
         this.$socket.emit("MESSAGE_CREATE", {
           channel: this.channel,
           message: data,
         });
-        console.log("sent");
+        document.getElementById("form-message").value = "";
       }
     },
-  },
-  watch: {
-    channel: function (newVal) {
-      this.$socket.emit("VIEW_CHANNEL", {
-        type: newVal.type,
-        id: newVal.id,
-      });
+    scroll() {
+      var div = document.getElementById("view-channel");
+      div.scrollTop = div.scrollHeight;
+    },
+    loadMessages(e) {
+      if (e.target.scrollTop === 0 && !this.isLoadgin) {
+        this.page += 1;
+        this.noScroll = true;
+        this.lastScroll = document.getElementById("view-channel").scrollHeight;
+        this.getMessages();
+      }
+    },
+    async getMessages() {
+      console.log("get");
+      this.isLoadgin = true;
+      if (this.first) this.messages = [];
+      const responce = await fetch(
+        `${this.$store.state.host}api/v1/chat/messages/${this.channel.id}/${this.page}`,
+        {
+          credentials: "include",
+          withCredentials: true,
+        }
+      );
+      const result = await responce.json();
+      if (result && result.status === "success") {
+        let newArray = this.messages;
+        for (const msg of result.result) {
+          newArray.push({ content: msg.content });
+        }
+        this.messages = newArray;
+      }
+      this.isLoadgin = false;
     },
   },
-  mounted() {
-    this.$socket.emit("VIEW_CHANNEL", {
-      type: this.channel.type,
-      id: this.channel.id,
-    });
+  beforeMount() {
+    this.getMessages();
   },
-  unmounted() {
-    this.$socket.emit("LEAVE_CHANNEL", {
-      type: this.channel.type,
-      id: this.channel.id,
+  async updated() {
+    if (!this.noScroll) {
+      this.scroll();
+    } else {
+      const el = document.getElementById("view-channel");
+      const newStroll = el.scrollHeight;
+      const pos = newStroll - this.lastScroll;
+      el.scrollTop = pos;
+    }
+  },
+  mounted() {
+    this.$socket.on("MESSAGE_CREATE", (data) => {
+      if (data.channel === this.channel.id)
+        this.messages.push({ content: data.message });
     });
   },
 };
 </script>
 
 <style scoped lang="scss">
+.view-channel {
+  height: 80vh;
+  width: 100%;
+  overflow-y: scroll;
+}
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div id="chats">
-    <p>Chats</p>
     <Loader msg="Loading..." v-if="!chats" />
     <div v-if="chats" class="chat">
       <div class="list">
@@ -14,13 +13,17 @@
                 }}</span></span
               >
             </div>
-            <h6 @click="viewRoom(chat.id, 'TEXT_ROOM')">{{ chat.name }}</h6>
+            <h6>
+              <router-link :to="'/chats/' + chat.id">{{
+                chat.name
+              }}</router-link>
+            </h6>
           </li>
         </ul>
       </div>
       <div class="chat">
-        <div v-if="channel.id && channel.type">
-          <ViewChannel :channel="channel" />
+        <div v-if="channel.id">
+          <ViewChannel @updateRoom="updateRoom" :channel="channel" />
         </div>
       </div>
     </div>
