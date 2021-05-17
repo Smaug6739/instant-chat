@@ -1,5 +1,5 @@
 import Loader from "@/components/common/loader.component.vue";
-import ViewChannel from '@/components/chat/view_channel.vue'
+import ViewChannel from '@/components/chat/room/view_channel.vue'
 
 export default {
 	name: "Chats list",

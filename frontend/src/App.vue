@@ -32,4 +32,11 @@ export default {
   flex-direction: column;
   height: 100vh;
 }
+a {
+  text-decoration: none;
+  &.router-link-active {
+    color: white;
+  }
+  color: rgb(170, 170, 170);
+}
 </style>

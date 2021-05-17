@@ -1,4 +1,6 @@
 @import '../../../../public/scss/theme-variables';
+@import "../../../../public/scss/mixins";
+
 .chat {
   display: flex;
   .list {
@@ -12,25 +14,10 @@
       .container-circle {
         margin-right: 5px;
         .circle {
-          width: 40px;
-          display: inline-block;
-          line-height: 0px;
-          border-radius: 50%;
-          border: 2px solid;
-          font-size: 32px;
-          background: #5d4037;
+          @include circle()
         }
-        .circle span {
-          display: inline-block;
-          padding-top: 50%;
-          padding-bottom: 50%;
-          margin-left: 8px;
-          margin-right: 8px;
-        }
-        .circle-letter {
-          font-weight: 600;
-          text-align: center;
-        }
+        
+        
       }
     }
   }

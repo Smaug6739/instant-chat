@@ -1,0 +1,11 @@
+@mixin circle($color:red) {
+	background:$color;
+  font-size: 1.5rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex; /* or inline-flex */
+  align-items: center;
+  justify-content: center;
+  margin: 3px;
+}
