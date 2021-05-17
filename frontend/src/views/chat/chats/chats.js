@@ -1,5 +1,5 @@
 import Loader from "@/components/common/loader.component.vue";
-import ViewChannel from '@/components/chat/room/view_channel.vue'
+import ViewChannel from '@/components/chat/room/room.vue'
 import BtnBurger from "@/components/common/btn-burger.component.vue";
 export default {
 	name: "Chats list",
@@ -17,9 +17,20 @@ export default {
 		BtnBurger
 	},
 	async beforeMount() {
-		const responce = await fetch(`${this.$store.state.host}api/v1/chat/rooms`);
-		const result = await responce.json();
-		this.chats = result.result;
+
+		try {
+			const responce = await fetch(`${this.$store.state.host}api/v1/chat/rooms`);
+			if (!responce) this.chats = 'none';
+			else {
+				const result = await responce.json();
+				if (result && result.result.length) this.chats = result.result;
+			}
+		} catch {
+			this.chats = 'none';
+		}
+
+
+
 		this.channel.id = window.location.href.split('/').reverse()[0]
 	},
 	methods: {
@@ -40,12 +51,5 @@ export default {
 				btn.classList.add('is-opened');
 			}
 		},
-
-		/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-		closeNav() {
-			document.getElementById("nav-channels").classList.add('none')
-		}
-
 	},
-
 };

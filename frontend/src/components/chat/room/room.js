@@ -6,11 +6,11 @@ export default {
 	data() {
 		return {
 			messages: [],
-			isLoadgin: false,
 			page: 1,
 			noScroll: false,
 			lastScroll: null,
 			me: 7,
+			found: false,
 		};
 	},
 	watch: {
@@ -41,7 +41,7 @@ export default {
 			div.scrollTop = div.scrollHeight;
 		},
 		loadMessages(e) {
-			if (e.target.scrollTop === 0 && !this.isLoadgin) {
+			if (e.target.scrollTop === 0) {
 				this.page += 1;
 				this.noScroll = true;
 				this.lastScroll = document.getElementById("view-channel").scrollHeight;
@@ -49,31 +49,32 @@ export default {
 			}
 		},
 		async getMessages() {
-			console.log("get");
-			this.isLoadgin = true;
-			const responce = await fetch(
-				`${this.$store.state.host}api/v1/chat/messages/${this.channel.id}/${this.page}`,
-				{
+			try {
+				const responce = await fetch(
+					`${this.$store.state.host}api/v1/chat/messages/${this.channel.id}/${this.page}`, {
 					credentials: "include",
 					withCredentials: true,
-				}
-			);
-			const result = await responce.json();
-			if (result && result.status === "success") {
-				let newArray = [];
-				for (const msg of result.result) {
-					newArray.push({ content: msg.content, author: msg.author });
-				}
-				for (const msg of this.messages) {
-					newArray.push(msg);
-				}
-				this.messages = newArray;
+				});
+				const result = await responce.json();
+				if (result && result.status === "success") {
+					let newArray = [];
+					for (const msg of result.result) {
+						newArray.push({ content: msg.content, author: msg.author });
+					}
+					for (const msg of this.messages) {
+						newArray.push(msg);
+					}
+					this.messages = newArray;
+				} else throw 'not found'
+				this.found = true;
+			} catch {
+				this.found = false;
 			}
-			this.isLoadgin = false;
+
 		},
 	},
 	beforeMount() {
-		this.getMessages("first");
+		this.getMessages();
 	},
 	async updated() {
 		if (!this.noScroll) {

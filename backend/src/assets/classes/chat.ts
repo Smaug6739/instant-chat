@@ -9,7 +9,7 @@ export class ChatClass {
 		db.query('SELECT * FROM channels', (err, result) => {
 			if (err) throw err;
 			for (const room of result) {
-				this.rooms.set(room.id, room)
+				this.rooms.set(room.id.toString(), room)
 			}
 		})
 	}
@@ -58,6 +58,7 @@ export class ChatClass {
 		return new Promise((resolve, reject) => {
 			if (!roomId) return reject(new Error('Missing room id parameter'));
 			if (!page) return reject(new Error('Missing page parameter'));
+			if (!this.rooms.get(roomId)) return reject(new Error('Channel not found.'))
 			const pageNumber = parseInt(page);
 			if (isNaN(pageNumber)) return reject(new TypeError('Invalid page number'));
 			const skip = (pageNumber * 25) - 25;
