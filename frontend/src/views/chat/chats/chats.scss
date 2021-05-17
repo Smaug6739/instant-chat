@@ -3,10 +3,14 @@
 .open-btn{
   display:none;
 }
-.chat {
-  display: flex;
-
+.rooms-container {
+    display: flex;
     background-color: $background-element-dark;
+    .channels-container{
+      display:flex;
+      flex-direction: column;
+      //align-items: flex-start;
+    }
     li {
       list-style: none;
       display: flex;
@@ -17,7 +21,7 @@
           @include circle()
         }
   }
-  .chat {
+  .room {
     display: block;
     width: 100%;
     padding: 10px;

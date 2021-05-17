@@ -1,6 +1,6 @@
 <template>
-  <div id="chats">
-    <div class="chat">
+  <div class="rooms-container">
+    <div class="channels-container">
       <div style="background: #212831" @click="openNav">
         <span class="btn-burger"><BtnBurger /></span>
       </div>
@@ -22,14 +22,14 @@
           </li>
         </div>
         <div v-else>
-          <span>Oh oh... on dirrait qu'il n'y a aucun chat ici</span>
+          <span>Oh oh... on dirrait qu'il</span>
         </div>
       </ul>
+    </div>
 
-      <div class="chat">
-        <div v-if="channel.id">
-          <ViewChannel @updateRoom="updateRoom" :channel="channel" />
-        </div>
+    <div class="room">
+      <div v-if="channel.id">
+        <ViewChannel @updateRoom="updateRoom" :channel="channel" />
       </div>
     </div>
   </div>

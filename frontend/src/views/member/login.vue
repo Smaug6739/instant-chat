@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1 class="mb-5 text-center">Plusheberg</h1>
-
+  <div id="container">
     <form id="form_login">
       <div id="margin-container">
         <fieldset class="form-group">
@@ -56,7 +54,12 @@ export default {
         }
       );
       const result = await responce.json();
-      if (result.result.auth) window.location.href = "/member";
+      if (result.result && result.result.auth) {
+        for (const obj in result.result.member) {
+          localStorage.setItem(obj, result.result.member[obj]);
+          this.$router.push("/chats");
+        }
+      }
     },
   },
 };
@@ -64,9 +67,16 @@ export default {
 
 <style scoped lang="scss">
 @media screen and (min-width: 500px) {
+  #container {
+    display: block;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   form {
     width: 50%;
-    margin-left: 25%;
   }
 }
 fieldset.form-group {

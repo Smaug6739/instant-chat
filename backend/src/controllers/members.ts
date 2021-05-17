@@ -19,8 +19,14 @@ export function auth(req: IObject, res: IObject): void {
             res.cookie('user_auth', `${result.id}`, { maxAge: 3600000, httpOnly: false, domain: config.domain }) //process.env.NODE_ENV == 'production' ? 'None' : 'Lax'                   //secure: process.env.NODE_ENV == 'production' ? true : false,
             res.status(200).json(checkAndChange({
                 auth: {
-                    auth: true,
+                    auth: true
                 },
+                member: {
+                    id: result.id,
+                    username: result.nickname,
+                    email: result.email,
+                    avatar: result.avatar
+                }
             }))
         })
         .catch(error => res.json(checkAndChange(error)))
