@@ -25,7 +25,8 @@ export function auth(req: IObject, res: IObject): void {
                     id: result.id,
                     username: result.nickname,
                     email: result.email,
-                    avatar: result.avatar
+                    avatar: result.avatar,
+                    color: result.color
                 }
             }))
         })

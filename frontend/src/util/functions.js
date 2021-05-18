@@ -20,6 +20,7 @@ function getUserCacheInfos() {
 		username: localStorage.getItem('username'),
 		email: localStorage.getItem('email'),
 		avatar: localStorage.getItem('avatar'),
+		color: localStorage.getItem('color'),
 	}
 }
 export { getCookie }
