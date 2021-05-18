@@ -7,7 +7,7 @@ export default {
 			page: 1,
 			noScroll: false,
 			lastScroll: null,
-			me: 7,
+			me: this.$getUser().id,
 			existChannel: false,
 			isLoadMessages: false,
 			oldMessages: true,

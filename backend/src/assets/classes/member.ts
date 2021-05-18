@@ -1,4 +1,5 @@
 import db from '../../models/db';
+import { config } from '../.././config'
 import { IMember, IObject, IUserInfos } from '../../types';
 import { hasPermissions } from '../../utils/functions'
 import { hash, compare } from "bcrypt";
@@ -60,14 +61,12 @@ export class MemberClass {
     ): Promise<IObject | Error> {
         return new Promise<IObject | Error>((resolve, reject) => {
             if (!nickname || nickname && nickname.trim() === '') return reject(new Error("Missing nickaname param."))
-            if (!permissions && permissions != 0) return reject(new Error("Missing permissions param."))
-            if (!banishment && banishment != 0) return reject(new Error("Missing banishment param."))
-            if (!avatar || avatar && avatar.trim() === '') return reject(new Error("Missing avatar param."))
+            if (!avatar || avatar && avatar.trim() === '') avatar = ''
             if (!password || password && password.trim() === '') return reject(new Error("Missing password param."))
-            if (!first_name || first_name && first_name.trim() === '') return reject(new Error("Missing first name param."))
-            if (!last_name || last_name && last_name.trim() === '') return reject(new Error("Missing last name param."))
+            if (!first_name || first_name && first_name.trim() === '') first_name = ''
+            if (!last_name || last_name && last_name.trim() === '') last_name = ''
             if (!age) return reject(new Error("Missing age param."))
-            if (!phone_number || phone_number && phone_number.trim() === '') return reject(new Error("Missing phone number param."))
+            if (!phone_number || phone_number && phone_number.trim() === '') phone_number = ''
             if (!email || email && email.trim() === '') return reject(new Error("Missing email param."))
             if (!dateInsert) return reject(new Error("Missing date insert param."))
             if (typeof nickname !== 'string') return reject(new Error("nickname must be a string"))
@@ -80,9 +79,10 @@ export class MemberClass {
             if (typeof age !== 'string') return reject(new Error("age must be a number"))
             if (typeof phone_number !== 'string') return reject(new Error("phone_number must be a string"))
             if (typeof email !== 'string') return reject(new Error("email must be a string"))
+            const color = config.colors[Math.floor(Math.random() * config.colors.length)]
             hash(password, 10)
                 .then((hash: string) => {
-                    db.query('INSERT INTO members (`nickname`, `permissions`, `banishment`, `avatar`, `password`, `first_name`, `last_name`, `age`, `phone_number`, `email`, `date_insert`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', [nickname, permissions, banishment, avatar, hash, first_name, last_name, age, phone_number, email, dateInsert], (err, result: Array<IObject>): void => {
+                    db.query('INSERT INTO members (`nickname`, `permissions`, `banishment`,`color`, `avatar`, `password`, `first_name`, `last_name`, `age`, `phone_number`, `email`, `date_insert`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', [nickname, permissions, banishment, color, avatar, hash, first_name, last_name, age, phone_number, email, dateInsert], (err, result: Array<IObject>): void => {
                         if (err) return reject(new Error(err.message))
                         return resolve(result)
                     })

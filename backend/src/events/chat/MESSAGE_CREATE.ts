@@ -13,7 +13,7 @@ export async function run(server: any, socket: any, data: IObject, auth: IObject
 		'',
 		data.channel.id
 	)
-		.then(() => {
+		.then((result) => {
 			server.io.to(`01${data.channel.id}`).emit('MESSAGE_CREATE', {
 				message: data.message,
 				channel: data.channel.id

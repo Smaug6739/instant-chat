@@ -23,7 +23,7 @@
         display: flex;
         justify-content: flex-end;
         .content {
-          background-color: #248bf5;
+          background-color: $color-end;
           max-width: 90%;
           padding: 5px 10px 0px 10px;
           border-radius: 0.7rem;
@@ -41,7 +41,7 @@
         display: flex;
         justify-content: flex-start;
         .content {
-          background-color: #248bf5;
+          background-color: $color-end;
           max-width: 90%;
           padding: 5px 10px 0px 10px;
           border-radius: 1.2rem;

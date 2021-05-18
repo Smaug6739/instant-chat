@@ -13,6 +13,7 @@ export interface Iconfig {
     }
     readonly secret: string;
     readonly permissions: Array<any>
+    readonly colors: Array<string>
 }
 //Router
 export interface Iroute {

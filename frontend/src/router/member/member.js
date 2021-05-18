@@ -4,7 +4,7 @@ const routes = [
 
 		path: '/member/register',
 		name: 'Member register',
-		component: () => import('@/views/member/register.vue'),
+		component: () => import('@/views/member/register/register.vue'),
 		meta: {
 			admin: false,
 			member: false,

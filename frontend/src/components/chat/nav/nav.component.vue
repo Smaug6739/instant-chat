@@ -1,27 +1,39 @@
 <template>
-  <div class="channels-container">
-    <div @click="openNav">
-      <div class="btn-burger"><BtnBurger /></div>
-    </div>
-    <ul class="none" id="nav-channels">
-      <div v-if="chats && chats !== 'none'">
-        <li v-for="chat of chats" :key="chat">
-          <div class="container-circle">
-            <span class="circle">
-              <span class="circle-letter">
-                {{ chat.name.slice(0, 1) }}
+  <div id="nav-app">
+    <div class="channels-container">
+      <div @click="openNav">
+        <div class="btn-burger"><BtnBurger /></div>
+      </div>
+      <ul class="none" id="nav-channels">
+        <div v-if="chats && chats !== 'none'">
+          <li v-for="chat of chats" :key="chat">
+            <div class="container-circle">
+              <span class="circle">
+                <span>
+                  {{ chat.name.slice(0, 1) }}
+                </span>
               </span>
-            </span>
-          </div>
-          <h6>
-            <router-link :to="'/chats/' + chat.id">{{ chat.name }}</router-link>
-          </h6>
-        </li>
-      </div>
-      <div v-else>
-        <span>Oh oh... on dirrait qu'il</span>
-      </div>
-    </ul>
+            </div>
+            <h6>
+              <router-link :to="'/chats/' + chat.id">
+                {{ chat.name }}
+              </router-link>
+            </h6>
+          </li>
+        </div>
+        <div v-else>
+          <span
+            >Oh oh... on dirrait que vous n'avez accès a aucun channel ou qu'il
+            n'en existe pas</span
+          >
+        </div>
+      </ul>
+    </div>
+    <div id="user-container" class="none" v-if="user">
+      <img v-if="user.avatar" :src="hostAvatar + user.avatar" />
+      <span v-else class="circle">{{ user.username.slice(0, 1) }}</span>
+      <span> {{ user.username }} </span>
+    </div>
   </div>
 </template>
 
@@ -33,6 +45,7 @@ export default {
   data() {
     return {
       chats: null,
+      user: null,
     };
   },
   components: {
@@ -51,6 +64,7 @@ export default {
     } catch {
       this.chats = "none";
     }
+    this.user = this.$getUser();
   },
   methods: {
     openNav() {
@@ -59,10 +73,12 @@ export default {
       if (btn.classList.contains("is-opened")) {
         btn.classList.add("is-closed");
         btn.classList.remove("is-opened");
+        document.getElementById("user-container").classList.add("none");
       } else {
         document.getElementById("nav-channels").classList.remove("none");
         btn.classList.remove("is-closed");
         btn.classList.add("is-opened");
+        document.getElementById("user-container").classList.remove("none");
       }
     },
   },
@@ -72,7 +88,11 @@ export default {
 <style scoped lang="scss">
 @import "../../../../public/scss/theme-variables";
 @import "../../../../public/scss/mixins";
-
+#nav-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .channels-container {
   display: flex;
   flex-direction: column;
@@ -80,10 +100,11 @@ export default {
 }
 li {
   list-style: none;
+  margin-left: -2rem;
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-  min-width: 150px;
+  min-width: 160px;
   .circle {
     @include circle();
   }
@@ -91,9 +112,24 @@ li {
 .btn-burger {
   margin: 15px;
 }
+#user-container {
+  height: 50px;
+  background-color: $color-end;
+  display: flex;
+  span {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+.circle {
+  @include circle(red, 1);
+}
 @media screen and (max-width: 900px) {
   .none {
-    display: none;
+    display: none !important;
+  }
+  .btn-burger {
+    margin: 5px;
   }
 }
 @media screen and (min-width: 900px) {

@@ -1,4 +1,4 @@
-@mixin circle($color:red) {
+@mixin circle($color:red, $min:0) {
 	background:$color;
   font-size: 1.5rem;
   width: 45px;
@@ -9,5 +9,8 @@
   justify-content: center;
   margin: 5px;
   text-transform: uppercase;
-
+  @if $min !=0 {
+    width: 35px;
+    height: 35px;
+  }
 }

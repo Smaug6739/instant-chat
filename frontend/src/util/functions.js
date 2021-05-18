@@ -14,10 +14,19 @@ function getCookie(cname) {
 	return "";
 
 }
+function getUserCacheInfos() {
+	return {
+		id: localStorage.getItem('id'),
+		username: localStorage.getItem('username'),
+		email: localStorage.getItem('email'),
+		avatar: localStorage.getItem('avatar'),
+	}
+}
 export { getCookie }
 export default {
 	install: (app) => {
 		// app.$socket = socket
-		app.config.globalProperties.$getCookie = getCookie
+		app.config.globalProperties.$getCookie = getCookie;
+		app.config.globalProperties.$getUser = getUserCacheInfos;
 	}
 }
