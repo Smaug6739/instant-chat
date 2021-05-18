@@ -1,6 +1,6 @@
 <template>
   <div class="view-channel" id="view-channel" @scroll="loadMessages">
-    <div v-if="found">
+    <div v-if="existChannel">
       <div v-if="channel.id">
         <div v-if="messages.length">
           <ul class="imessage">
@@ -26,14 +26,15 @@
         </div>
         <input
           type="text"
-          class="form-control"
+          class="form-control input-message"
           @keyup.enter="sendMessage"
           id="form-message"
           placeholder="Send a message"
         />
       </div>
     </div>
-    <div v-else>Aucun chat trouvé ici...</div>
+    <div v-else-if="isLoadMessages">Je charge les messages...</div>
+    <div v-else>Ce channel ne semble pas exister</div>
   </div>
 </template>
 <script src="./room"></script>

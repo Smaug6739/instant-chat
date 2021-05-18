@@ -1,36 +1,8 @@
 <template>
   <div class="rooms-container">
-    <div class="channels-container">
-      <div style="background: #212831" @click="openNav">
-        <span class="btn-burger"><BtnBurger /></span>
-      </div>
-      <ul class="none" id="nav-channels">
-        <div v-if="chats && chats !== 'none'">
-          <li v-for="chat of chats" :key="chat">
-            <div class="container-circle">
-              <span class="circle">
-                <span class="circle-letter">
-                  {{ chat.name.slice(0, 1) }}
-                </span>
-              </span>
-            </div>
-            <h6>
-              <router-link :to="'/chats/' + chat.id">{{
-                chat.name
-              }}</router-link>
-            </h6>
-          </li>
-        </div>
-        <div v-else>
-          <span>Oh oh... on dirrait qu'il</span>
-        </div>
-      </ul>
-    </div>
-
+    <RoomsList />
     <div class="room">
-      <div v-if="channel.id">
-        <ViewChannel @updateRoom="updateRoom" :channel="channel" />
-      </div>
+      <ViewChannel />
     </div>
   </div>
 </template>

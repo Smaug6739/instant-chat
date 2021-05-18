@@ -64,7 +64,10 @@ export class ChatClass {
 			const skip = (pageNumber * 25) - 25;
 			db.query('SELECT * FROM messages WHERE channel_id = ? ORDER BY id DESC LIMIT 25 OFFSET ?', [roomId, skip], (err, result) => {
 				if (err) reject(err)
-				resolve(result.reverse());
+				// resolve(result.reverse());
+				setTimeout(() => {
+					resolve(result.reverse());
+				}, 3000)
 			})
 		})
 	}

@@ -57,8 +57,9 @@ export default {
       if (result.result && result.result.auth) {
         for (const obj in result.result.member) {
           localStorage.setItem(obj, result.result.member[obj]);
-          this.$router.push("/chats");
         }
+        if (!this.$route.query.redirect) this.$router.push("/chats");
+        else this.$router.push(this.$route.query.redirect);
       }
     },
   },

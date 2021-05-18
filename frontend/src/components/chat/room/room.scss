@@ -2,9 +2,10 @@
 @import "../../../../public/scss/mixins";
 
 .view-channel {
-  height: 97vh;
+  height: 100vh;
   width: 100%;
   overflow-y: scroll;
+  background-color: $background-element-light;
 }
 .imessage {
   width: 100%;
@@ -54,4 +55,10 @@
       }
     }
   }
+}
+
+.input-message{
+  width:98%;
+  margin:auto;
+  margin-bottom:10px;
 }

@@ -17,14 +17,14 @@ body {
 }
 
 ::-webkit-scrollbar {
-  background-color: #181b20;
+  background-color: #1f2335;
   height: 5px;
   width: 10px;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3c6382;
+  background: #4e63ef;
   border-radius: 10px;
 }
 

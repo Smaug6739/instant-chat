@@ -7,6 +7,7 @@ const routes = [
 		meta: {
 			admin: false,
 			member: false,
+			auth: true,
 		}
 	},
 ]

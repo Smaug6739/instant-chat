@@ -1,31 +1,37 @@
 export default {
 	name: "view_channel",
-	props: {
-		channel: [Object],
-	},
 	data() {
 		return {
+			channel: Object,
 			messages: [],
 			page: 1,
 			noScroll: false,
 			lastScroll: null,
 			me: 7,
-			found: false,
+			existChannel: false,
+			isLoadMessages: false,
+			oldMessages: true,
 		};
 	},
 	watch: {
-		$route(to) {
-			this.$emit("updateRoom", { id: to.params.room });
-		},
-		channel: function () {
-			this.messages = [];
-			this.page = 1;
-			this.getMessages();
-			this.noScroll = false;
-			this.lastScroll = null;
+		$route() {
+			this.change()
 		},
 	},
 	methods: {
+		change() {
+			this.messages = [];
+			this.page = 1;
+			this.noScroll = false;
+			this.lastScroll = null;
+			this.channel = {
+				id: this.$route.params.room
+			}
+			this.existChannel = false;
+			this.isLoadMessages = false;
+			this.getMessages();
+
+		},
 		sendMessage() {
 			let data = document.getElementById("form-message").value;
 			if (data) {
@@ -49,6 +55,9 @@ export default {
 			}
 		},
 		async getMessages() {
+			if (this.isLoadMessages) return; //On ne charge pas si un chargement est déja en cours.
+			this.isLoadMessages = true;
+			if (!this.oldMessages && this.messages.length) return; //Si il n'y a pas d'anciens messages mais que il y a au moins 1 message
 			try {
 				const responce = await fetch(
 					`${this.$store.state.host}api/v1/chat/messages/${this.channel.id}/${this.page}`, {
@@ -57,6 +66,7 @@ export default {
 				});
 				const result = await responce.json();
 				if (result && result.status === "success") {
+					if (!result.result.length) this.oldMessages = false;
 					let newArray = [];
 					for (const msg of result.result) {
 						newArray.push({ content: msg.content, author: msg.author });
@@ -66,14 +76,17 @@ export default {
 					}
 					this.messages = newArray;
 				} else throw 'not found'
-				this.found = true;
+				this.existChannel = true;
 			} catch {
-				this.found = false;
+				this.existChannel = false;
 			}
-
+			this.isLoadMessages = false;
 		},
 	},
 	beforeMount() {
+		this.channel = {
+			id: this.$route.params.room
+		}
 		this.getMessages();
 	},
 	async updated() {
