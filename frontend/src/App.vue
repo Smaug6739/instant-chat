@@ -18,6 +18,7 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "../public/scss/theme-variables";
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -30,6 +31,6 @@ a {
   &.router-link-active {
     color: white;
   }
-  color: rgb(170, 170, 170);
+  color: $color-end;
 }
 </style>

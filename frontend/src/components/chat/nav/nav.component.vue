@@ -102,7 +102,6 @@ export default {
 }
 li {
   list-style: none;
-  margin-left: -2rem;
   display: flex;
   align-items: center;
   margin-bottom: 8px;

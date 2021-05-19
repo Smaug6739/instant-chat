@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import "../public/css/main.css"
 import App from './App.vue';
 import './registerServiceWorker';

@@ -1,34 +1,38 @@
 <template>
-  <div id="container">
-    <form id="form_login">
-      <div id="margin-container">
-        <fieldset class="form-group">
-          <h4>Connexion à votre compte</h4>
-          <label for="form-username">Pseudo :</label>
-          <input
-            type="text"
-            id="form-username"
-            class="form-control mb-3"
-            placeholder="Pseudo"
-            required
-            autofocus
-          />
-          <label for="form-password">Mot de passe :</label>
-          <input
-            type="password"
-            id="form-password"
-            class="form-control mb-3"
-            placeholder="Password"
-            required
-            name="pass"
-          />
-          <div id="error"></div>
+  <div id="login">
+    <div class="header__bg"></div>
+    <div id="container">
+      <form>
+        <h4>Connexion à votre compte</h4>
+        <label for="form-username">Pseudo :</label>
+        <input
+          type="text"
+          id="form-username"
+          class="form-control mb-3"
+          placeholder="Pseudo"
+          required
+          autofocus
+        />
+        <label for="form-password">Mot de passe :</label>
+        <input
+          type="password"
+          id="form-password"
+          class="form-control mb-3"
+          placeholder="Password"
+          required
+          name="pass"
+        />
+        <div id="error"></div>
+        <div class="btns">
           <button type="button" class="btn btn-success" @click="connect">
             Se connecter
           </button>
-        </fieldset>
-      </div>
-    </form>
+          <router-link to="/member/register"
+            >You don't have an account ?</router-link
+          >
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 <script>
@@ -67,25 +71,26 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@media screen and (min-width: 500px) {
-  #container {
-    display: block;
-    width: 100%;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  form {
-    width: 50%;
-  }
+@import "../../../public/scss/theme-variables";
+#login {
+  position: relative;
 }
-fieldset.form-group {
-  border: 1px groove black !important;
-  border-radius: 2px;
-  padding: 0 1.4em 1.4em 1.4em !important;
-  margin: 0 0 1.5em 0 !important;
-  -webkit-box-shadow: 0px 0px 0px 0px #000;
-  box-shadow: 0px 0px 0px 0px #000;
+#container {
+  background-color: $background-element-light;
+  width: 45%;
+  display: block;
+  border: 1px groove white;
+  border-radius: 5px;
+  padding: 0 2em 2em 2em;
+  -webkit-box-shadow: 2px 2px 2px 2px black;
+  box-shadow: 2px 2px 2px 2px black;
+  margin: auto;
+  margin-top: 8%;
+}
+.btns {
+  button,
+  a {
+    margin: 10px 10px 10px 0px;
+  }
 }
 </style>

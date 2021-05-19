@@ -1,21 +1,26 @@
 @import "../../../../public/scss/theme-variables";
+#register{
+  position:relative;
+}
 #container {
   h3 {
     text-align: center;
     margin-bottom: 25px;
   }
+
   background-color: $background-element-light;
-  width: 40%;
-  margin-top: 50px;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px groove black;
-  border: 1px groove black !important;
-  border-radius: 2px;
-  padding: 0 1.4em 1.4em 1.4em !important;
-  -webkit-box-shadow: 0px 0px 0px 0px #000;
-  box-shadow: 0px 0px 0px 0px #000;
+  width: 45%;
+  display:block;
+  border: 1px groove white;
+  border-radius: 5px;
+  padding: 0 2em 2em 2em;
+  -webkit-box-shadow: 2px 2px 2px 2px black;
+  box-shadow: 2px 2px 2px 2px black;
+  margin:auto;
+  margin-top:8%;
+
 }
+
 .tab {
   label {
     margin-top: 20px;
@@ -27,7 +32,28 @@
       margin-right: 10px;
     }
   }
+  .have-account{
+    display:flex;
+    justify-content: flex-end;
+    a{
+      display:block;
+      margin: 3px;
+      padding: .375rem;
+      margin-right: 10px;
+    }
+  }
 }
 .none {
   display: none;
 }
+
+
+@media screen and (max-width:500px){
+  #container{
+    width: 80%;
+    height:100%;
+    margin-top:15%;
+    box-shadow: 0px 0px 0px 0px black;
+  }
+}
+

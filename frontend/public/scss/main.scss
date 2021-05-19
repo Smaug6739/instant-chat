@@ -27,3 +27,74 @@ body{
   background: $color-end;
   border-radius: 10px;
 }
+a{color:$color-end}
+.header__bg {
+  z-index:-1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background-image: linear-gradient($background-element-dark,$color-end);
+  transform: skewY(-6deg);
+  transform-origin: top left;
+}
+.btn{
+	display:inline-block;
+	font-weight:400;
+	line-height:1.5;
+	color:#212529;
+	text-align:center;
+	text-decoration:none;
+	vertical-align:middle;
+	cursor:pointer;-webkit-user-select:none;
+	-moz-user-select:none;user-select:none;
+	background-color:transparent;
+	border:1px solid transparent;
+	padding:.375rem .75rem;
+	font-size:1rem;
+	border-radius:.25rem;
+	transition:color .15s ease-in-out,
+	background-color .15s ease-in-out,
+	border-color .15s ease-in-out,
+	box-shadow .15s ease-in-out;
+}
+h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-weight:500;line-height:1.2}
+h1{font-size:calc(1.375rem + 1.5vw)}
+h2{font-size:calc(1.325rem + .9vw)}
+h3{font-size:calc(1.3rem + .6vw)}
+h4{font-size:calc(1.275rem + .3vw)}
+h5{font-size:1.25rem} 
+h6{font-size:1rem}
+li {
+	text-align: -webkit-match-parent;
+}
+p{margin-top:0;margin-bottom:1rem}
+.form-control{
+	display:block;width:100%;padding:.375rem .75rem;font-size:1rem;font-weight:400;line-height:1.5;color:#212529;background-color:#fff;background-clip:padding-box;border:1px solid #ced4da;-webkit-appearance:none;-moz-appearance:none;appearance:none;border-radius:.25rem;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out
+}
+legend{float:left;width:100%;padding:0;margin-bottom:.5rem;font-size:calc(1.275rem + .3vw);line-height:inherit}
+label{display:inline-block}
+
+.btn-primary{color:#fff;background-color:$primary;border-color:$primary}
+.btn-secondary{color:#fff;background-color:$secondary;border-color:$secondary}
+.btn-success{color:#fff;background-color:$success;border-color:$success}
+.btn-warning{color:#fff;background-color:$warning;border-color:$warning}
+.btn-danger{color:#fff;background-color:$danger;border-color:$danger}
+.btn-info{color:#fff;background-color:$info;border-color:$info}
+.btn-light{color:#fff;background-color:$light;border-color:$light}
+.btn-dark{color:#fff;background-color:$dark;border-color:$dark}
+
+
+.btn-primary:hover{color:#fff;background-color:transparent }
+.btn-secondary:hover{color:#fff;background-color:none}
+.btn-success:hover{color:#fff;background-color:none}
+.btn-warning:hover{color:#fff;background-color:none}
+.btn-danger:hover{color:#fff;background-color:none}
+.btn-info:hover{color:#fff;background-color:none}
+
+@media screen and (max-width:500px){
+	.header__bg{display:none;}
+}

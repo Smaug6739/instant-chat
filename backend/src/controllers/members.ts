@@ -11,22 +11,22 @@ export function auth(req: IObject, res: IObject): void {
             const token = sign({
                 exp: Math.floor(Math.floor(Date.now() / 1000) + (6 * 60 * 60)),
                 expiresIn: 20000,
-                userId: result.id,
-                userPermissions: result.permissions
+                userId: result.member_id,
+                userPermissions: result.member_permissions
             }, config.secret)
             res.cookie('user_token', `${token}`, { maxAge: 3600000, httpOnly: true, domain: config.domain }) //process.env.NODE_ENV == 'production' ? 'None' : 'Lax'                   //secure: process.env.NODE_ENV == 'production' ? true : false,
-            res.cookie('user_id', `${result.id}`, { maxAge: 3600000, httpOnly: true, domain: config.domain }) //process.env.NODE_ENV == 'production' ? 'None' : 'Lax'                   //secure: process.env.NODE_ENV == 'production' ? true : false,
-            res.cookie('user_auth', `${result.id}`, { maxAge: 3600000, httpOnly: false, domain: config.domain }) //process.env.NODE_ENV == 'production' ? 'None' : 'Lax'                   //secure: process.env.NODE_ENV == 'production' ? true : false,
+            res.cookie('user_id', `${result.member_id}`, { maxAge: 3600000, httpOnly: true, domain: config.domain }) //process.env.NODE_ENV == 'production' ? 'None' : 'Lax'                   //secure: process.env.NODE_ENV == 'production' ? true : false,
+            res.cookie('user_auth', `${result.member_id}`, { maxAge: 3600000, httpOnly: false, domain: config.domain }) //process.env.NODE_ENV == 'production' ? 'None' : 'Lax'                   //secure: process.env.NODE_ENV == 'production' ? true : false,
             res.status(200).json(checkAndChange({
                 auth: {
                     auth: true
                 },
                 member: {
-                    id: result.id,
-                    username: result.nickname,
-                    email: result.email,
-                    avatar: result.avatar,
-                    color: result.color
+                    id: result.member_id,
+                    username: result.member_nickname,
+                    email: result.member_email,
+                    avatar: result.member_avatar,
+                    color: result.member_color
                 }
             }))
         })
