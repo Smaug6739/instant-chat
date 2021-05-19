@@ -15,11 +15,6 @@ export default {
     //Navbar,
     //Footer,
   },
-  mounted() {
-    this.$socket.on("MESSAGE_CREATE", (msg) => {
-      console.log("Un message a été posté : " + msg);
-    });
-  },
 };
 </script>
 <style lang="scss">

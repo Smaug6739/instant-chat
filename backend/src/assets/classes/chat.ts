@@ -2,6 +2,9 @@ import db from '../../models/db';
 import { IObject, IUserInfos } from '../../types';
 import { hasPermissions } from '../../utils/functions';
 
+import { MemberClass } from './member';
+
+const Member = new MemberClass();
 export class ChatClass {
 
 	public rooms = new Map()
@@ -62,8 +65,8 @@ export class ChatClass {
 			const pageNumber = parseInt(page);
 			if (isNaN(pageNumber)) return reject(new TypeError('Invalid page number'));
 			const skip = (pageNumber * 25) - 25;
-			db.query('SELECT * FROM messages WHERE channel_id = ? ORDER BY id DESC LIMIT 25 OFFSET ?', [roomId, skip], (err, result) => {
-				if (err) reject(err)
+			db.query('SELECT * FROM messages LEFT JOIN members ON members.member_id = messages.author WHERE channel_id = ? ORDER BY messages.id DESC LIMIT 25 OFFSET ?', [roomId, skip], (err, result) => {
+				if (err) return reject(err)
 				resolve(result.reverse());
 			})
 		})
@@ -76,15 +79,17 @@ export class ChatClass {
 		attachement: string,
 		channel_id: string
 	): Promise<IObject> {
-		return new Promise((resolve, reject) => {
+		return new Promise(async (resolve, reject) => {
 			if (!type) return reject(new Error('Missing type parameter'));
 			if (!author) return reject(new Error('Missing author parameter'));
 			if (!content) return reject(new Error('Missing content parameter'));
 			if (!attachement) attachement = ''
 			if (!channel_id) return reject(new Error('Missing channel id parameter'));
+			const user = await Member.getUserPublic(author);
+			if (!user) return reject('Member not found.')
 			db.query('INSERT INTO messages (type, author, content, attachement, channel_id) VALUES(?,?,?,?,?)', [type, author, content, attachement, channel_id], (err, result) => {
 				if (err) return reject(err)
-				resolve(result)
+				resolve(user)
 			});
 		});
 	}

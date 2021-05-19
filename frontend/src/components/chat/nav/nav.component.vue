@@ -31,7 +31,9 @@
     </div>
     <div id="user-container" class="none" v-if="user">
       <img v-if="user.avatar" :src="hostAvatar + user.avatar" />
-      <span v-else class="circle">{{ user.username.slice(0, 1) }}</span>
+      <span v-else class="circle" :style="'background-color:' + user.color">{{
+        user.username.slice(0, 1)
+      }}</span>
       <span> {{ user.username }} </span>
     </div>
   </div>

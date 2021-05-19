@@ -69,7 +69,13 @@ export default {
 					if (!result.result.length) this.oldMessages = false;
 					let newArray = [];
 					for (const msg of result.result) {
-						newArray.push({ content: msg.content, author: msg.author });
+						newArray.push({
+							author: msg.author,
+							content: msg.content,
+							member_avatar: msg.member_avatar,
+							member_color: msg.member_color,
+							member_nickname: msg.member_nickname
+						});
 					}
 					for (const msg of this.messages) {
 						newArray.push(msg);
@@ -103,7 +109,13 @@ export default {
 		this.$socket.on("MESSAGE_CREATE", (data) => {
 			if (data.channel === this.channel.id) {
 				this.noScroll = false;
-				this.messages.push({ content: data.message });
+				this.messages.push({
+					author: data.author,
+					content: data.content,
+					member_avatar: data.member_avatar,
+					member_color: data.member_color,
+					member_nickname: data.member_nickname
+				});
 			}
 		});
 	},

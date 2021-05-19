@@ -9,7 +9,16 @@
                 v-bind:class="me == message.author ? 'from-me' : 'from-them'"
               >
                 <div>
-                  <div class="author">{{ message.author }}</div>
+                  <img
+                    v-if="message.member_avatar"
+                    :src="hostAvatar + message.member_avatar"
+                  />
+                  <span
+                    v-else
+                    class="circle"
+                    :style="'background-color:' + message.member_color"
+                    >{{ message.member_nickname.slice(0, 1) }}</span
+                  >
                   <div class="content">
                     <div>
                       <p>

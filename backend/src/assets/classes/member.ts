@@ -10,7 +10,7 @@ export class MemberClass {
         return new Promise((resolve, reject) => {
             if (!username || username && username.trim() === '') return reject(new Error('[MISSING_PARAMETER] Missing username parameter'));
             if (!password || password && password.trim() === '') return reject(new Error('[MISSING_PARAMETER] Missing password parameter'));
-            db.query('SELECT * FROM members WHERE nickname = ? LIMIT 1', [username], (err, result: Array<IObject>): void => {
+            db.query('SELECT * FROM members WHERE member_nickname = ? LIMIT 1', [username], (err, result: Array<IObject>): void => {
                 if (err) return reject(new Error(err.message))
                 if (result[0]) {
                     compare(password, result[0].password).then((valid: Boolean): void => {
@@ -26,7 +26,17 @@ export class MemberClass {
         return new Promise((resolve, reject) => {
             if (!userId) return reject(new Error('Missing userId param.'))
             if (!hasPermissions(user.permissions, ['VIEW_MEMBERS']) && user.id != userId) return reject(new Error('Bad permissions.'))
-            db.query('SELECT * FROM members WHERE id = ? LIMIT 1', [userId], (err, result) => {
+            db.query('SELECT * FROM members WHERE member_id = ? LIMIT 1', [userId], (err, result) => {
+                if (err) return reject(new Error(err.message))
+                resolve(result[0])
+            })
+        })
+    }
+
+    public getUserPublic(id: string): IObject {
+        return new Promise((resolve, reject) => {
+            if (!id) return reject(new Error('Missing userId param.'))
+            db.query('SELECT member_nickname, member_avatar,member_color FROM members WHERE member_id = ? LIMIT 1', [id], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 resolve(result[0])
             })
@@ -82,12 +92,12 @@ export class MemberClass {
             const color = config.colors[Math.floor(Math.random() * config.colors.length)]
             hash(password, 10)
                 .then((hash: string) => {
-                    db.query('INSERT INTO members (`nickname`, `permissions`, `banishment`,`color`, `avatar`, `password`, `first_name`, `last_name`, `age`, `phone_number`, `email`, `date_insert`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', [nickname, permissions, banishment, color, avatar, hash, first_name, last_name, age, phone_number, email, dateInsert], (err, result: Array<IObject>): void => {
+                    db.query('INSERT INTO members (`member_nickname`, `member_permissions`, `member_banishment`,`member_color`, `member_avatar`, `member_password`, `member_first_name`, `member_last_name`, `member_age`, `member_phone_number`, `member_email`, `member_date_insert`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', [nickname, permissions, banishment, color, avatar, hash, first_name, last_name, age, phone_number, email, dateInsert], (err, result: Array<IObject>): void => {
                         if (err) return reject(new Error(err.message))
                         return resolve(result)
                     })
                 })
-                .catch((err: IObject) => {
+                .catch(() => {
                     reject(new Error('error whit password hash'))
                 })
         })
@@ -108,7 +118,7 @@ export class MemberClass {
             if (newSettings.age && typeof newSettings.age !== 'string') return reject(new Error("age must be a number"))
             if (newSettings.phone_number && typeof newSettings.phone_number !== 'string') return reject(new Error("phone_number must be a string"))
             if (newSettings.email && typeof newSettings.email !== 'string') return reject(new Error("email must be a string"))
-            db.query('SELECT * FROM members WHERE id = ? LIMIT 1', [userId], async (err, result: Array<IObject>) => {
+            db.query('SELECT * FROM members WHERE member_id = ? LIMIT 1', [userId], async (err, result: Array<IObject>) => {
                 if (err) return reject(new Error(err.message))
                 if (newSettings.permissions && !hasPermissions(user.permissions, ['ADMINISTRATOR'])) return reject(new Error('You don\'t have permissions for change permissions value.'))
                 if (newSettings.banishment && !hasPermissions(user.permissions, ['BAN_MEMBERS'])) return reject(new Error('You don\'t have permissions for change banishment value.'))
@@ -140,7 +150,7 @@ export class MemberClass {
     public delete(user: IUserInfos, userDelete: number): Promise<IObject | Error> {
         return new Promise<IObject | Error>((resolve, reject) => {
             if (!hasPermissions(user.permissions, ['DELETE_MEMBERS']) && user.id != userDelete) return reject(new Error('Bad permissions.'))
-            db.query('DELETE FROM members WHERE id = ?', [userDelete], (err, result) => {
+            db.query('DELETE FROM members WHERE member_id = ?', [userDelete], (err, result) => {
                 if (err) return reject(new Error(err.message))
                 resolve(result)
             })
