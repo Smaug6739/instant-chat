@@ -7,6 +7,16 @@
   overflow-y: scroll;
   background-color: $background-element-light;
 }
+  ::-webkit-scrollbar {
+    background-color:$layout-color;
+    height: 8px;
+    width: 8px;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $color-end;
+    border-radius: 10px;
+  }
 .imessage {
   width: 100%;
   display: flex;
