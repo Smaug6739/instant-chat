@@ -2,6 +2,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap'); // Roboto
+
 @import 'theme-variables';
 * {
 	margin: 0;
@@ -15,7 +17,7 @@
 body{
 	background-color: $background-element-dark ;
 	color:$text-color;
-	font-family: 'Signika', sans-serif;
+	font-family: 'Roboto','Signika', sans-serif;
 }
 ::-webkit-scrollbar {
   background-color:$layout-color;
@@ -40,6 +42,11 @@ a{color:$color-end}
   background-image: linear-gradient($background-element-dark,$color-end);
   transform: skewY(-6deg);
   transform-origin: top left;
+}
+.max-container{
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 .btn{
 	display:inline-block;
@@ -73,7 +80,21 @@ li {
 }
 p{margin-top:0;margin-bottom:1rem}
 .form-control{
-	display:block;width:100%;padding:.375rem .75rem;font-size:1rem;font-weight:400;line-height:1.5;color:#212529;background-color:#fff;background-clip:padding-box;border:1px solid #ced4da;-webkit-appearance:none;-moz-appearance:none;appearance:none;border-radius:.25rem;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out
+	background-color:#fff;
+	background-clip:padding-box;
+	border:1px solid #ced4da;
+	box-sizing: border-box;
+	color:#212529;
+	display:block;
+	font-size:1rem;
+	font-weight:400;
+	line-height:1.5;
+	padding:.375rem .75rem;
+	border-radius:.25rem;
+	transition:border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	width:100%;
+	-webkit-appearance:none;
+	-moz-appearance:none;appearance:none;
 }
 legend{float:left;width:100%;padding:0;margin-bottom:.5rem;font-size:calc(1.275rem + .3vw);line-height:inherit}
 label{display:inline-block}

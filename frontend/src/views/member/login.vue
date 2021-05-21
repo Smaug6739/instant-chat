@@ -1,38 +1,38 @@
 <template>
   <div id="login">
     <div id="container">
-      <form>
-        <h4>Connexion à votre compte</h4>
-        <div class="user-input-wrp">
-          <br />
-          <input
-            type="text"
-            id="form-username"
-            class="mb-3 form-control inputText"
-            required
-          />
-          <span class="floating-label">Your username</span>
-        </div>
-        <div class="user-input-wrp">
-          <br />
-          <input
-            type="password"
-            id="form-password"
-            class="mb-3 form-control inputText"
-            required
-          />
-          <span class="floating-label">Your password</span>
-        </div>
-        <div id="error"></div>
-        <div class="btns">
-          <button type="button" class="btn btn-success" @click="connect">
-            Login
-          </button>
-          <router-link to="/member/register"
-            >You don't have an account ?</router-link
-          >
-        </div>
-      </form>
+      <h3>Connexion à votre compte</h3>
+      <div class="user-input-wrp">
+        <br />
+        <input
+          type="text"
+          id="form-username"
+          class="mb-3 form-control inputText"
+          autocomplete="off"
+          required
+        />
+        <span class="floating-label">Your username</span>
+      </div>
+      <div class="user-input-wrp">
+        <br />
+        <input
+          type="password"
+          id="form-password"
+          class="mb-3 form-control inputText"
+          autocomplete="off"
+          required
+        />
+        <span class="floating-label">Your password</span>
+      </div>
+      <div id="error"></div>
+      <div class="btns">
+        <button type="button" class="btn btn-primary" @click="connect">
+          Login
+        </button>
+        <router-link to="/member/register"
+          >You don't have an account ?</router-link
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -73,25 +73,32 @@ export default {
 
 <style scoped lang="scss">
 @import "../../../public/scss/theme-variables";
-#login {
-  position: relative;
-}
+
 #container {
-  //background-color: $background-element-light;
-  width: 45%;
+  // background-color: $background-element-light;
+  max-width: 40%;
   display: block;
-  // border: 1px groove white;
-  // border-radius: 5px;
-  // padding: 0 2em 2em 2em;
+  border: 1px groove white;
+  border-radius: 5px;
+  padding: 0 2em 2em 2em;
   // -webkit-box-shadow: 2px 2px 2px 2px black;
   // box-shadow: 2px 2px 2px 2px black;
+  text-align: center;
   margin: auto;
   margin-top: 8%;
 }
 .btns {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
   button,
   a {
-    margin: 10px 10px 10px 0px;
+    margin: 10px 10px 10px 10px;
+  }
+  button {
+    width: 90%;
+    margin: auto;
+    border-radius: 1.5rem;
   }
 }
 .floating-label {
@@ -127,5 +134,21 @@ export default {
   left: 10px;
   font-size: 13px;
   opacity: 1;
+}
+input {
+  background-color: transparent;
+  color: #eee;
+  outline: none;
+  outline-style: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border: solid #eee 1px !important;
+  padding: 3px 10px;
+  border-radius: 0;
+  width: 100% !important;
+}
+input:focus {
+  border-bottom: solid #fff 1px !important;
 }
 </style>

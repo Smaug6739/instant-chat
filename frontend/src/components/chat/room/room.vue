@@ -1,7 +1,7 @@
 <template>
   <div class="view-channel" id="view-channel" @scroll="loadMessages">
-    <div v-if="existChannel">
-      <div v-if="channel.id">
+    <div v-if="existChannel" class="max-container">
+      <div class="msgs-in">
         <div v-if="messages.length">
           <ul class="imessage">
             <li v-for="message of messages" :key="message">

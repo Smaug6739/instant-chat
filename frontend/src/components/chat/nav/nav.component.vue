@@ -94,6 +94,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-right: solid white 1.2px;
 }
 .channels-container {
   display: flex;
@@ -105,7 +106,7 @@ li {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-  min-width: 160px;
+  min-width: 200px;
   .circle {
     @include circle();
   }

@@ -4,6 +4,7 @@
 .view-channel {
   height: 100vh;
   width: 100%;
+  display:block;
   overflow-y: scroll;
   background-color: $background-element-light;
 }
@@ -66,8 +67,17 @@
   }
 }
 
+
+
+.msgs-in{
+  display:flex;
+  flex-direction: column;
+  justify-content:space-between;
+  min-height: 100%;
+}
+
 .input-message{
-  width:98%;
+  width: 98%;
   margin:auto;
   margin-bottom:10px;
 }

@@ -1,6 +1,5 @@
 <template>
   <div id="register">
-    <div class="header__bg"></div>
     <div id="container">
       <h3>Création d'un compte</h3>
       <div class="tab none">
