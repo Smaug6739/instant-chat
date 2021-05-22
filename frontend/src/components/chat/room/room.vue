@@ -4,7 +4,7 @@
       <div class="msgs-in">
         <div v-if="messages.length">
           <ul class="imessage">
-            <li v-for="message of messages" :key="message">
+            <li v-for="(message, index) of messages" :key="message">
               <div
                 v-bind:class="me == message.author ? 'from-me' : 'from-them'"
               >
@@ -20,7 +20,20 @@
                     >{{ message.member_nickname.slice(0, 1) }}</span
                   >
                   <div class="content">
-                    <div>
+                    <div v-if="me == message.author" class="order-min">
+                      <DotsM :id="index">
+                        <template v-slot:menu>
+                          <li
+                            class="li-dots-menu"
+                            @click="editMessage(index, message.content)"
+                          >
+                            Editer
+                          </li>
+                          <li class="li-dots-menu">Supprimer</li>
+                        </template>
+                      </DotsM>
+                    </div>
+                    <div :id="'msg-' + index">
                       <p>
                         <span class="by">by test :</span>
                         <br />
@@ -33,13 +46,16 @@
             </li>
           </ul>
         </div>
-        <input
-          type="text"
-          class="form-control input-message"
-          @keyup.enter="sendMessage"
-          id="form-message"
-          placeholder="Send a message"
-        />
+        <div>
+          <div id="err-send-msg" class="error_msg"></div>
+          <input
+            type="text"
+            class="form-control input-message"
+            @keyup.enter="sendMessage"
+            id="form-message"
+            placeholder="Send a message"
+          />
+        </div>
       </div>
     </div>
     <div v-else-if="isLoadMessages">Je charge les messages...</div>
@@ -48,6 +64,6 @@
 </template>
 <script src="./room"></script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "./room";
 </style>

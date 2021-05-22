@@ -33,12 +33,16 @@
         display: flex;
         justify-content: flex-end;
         .content {
+          display:flex;
           background-color: $color-end;
           max-width: 90%;
           padding: 5px 10px 0px 10px;
           border-radius: 0.7rem;
           margin-right: 10px;
           margin: 5px;
+        }
+        .order-min{
+          order:1;
         }
         .circle {
           order: 2;
@@ -67,7 +71,15 @@
   }
 }
 
-
+.li-dots-menu{
+  display:block;
+  height: 25px;
+  border-radius: 6px;
+  padding: 2px;
+  &:hover{
+    background-color:#c4c4c4;
+  }
+}
 
 .msgs-in{
   display:flex;
@@ -80,4 +92,14 @@
   width: 98%;
   margin:auto;
   margin-bottom:10px;
+}
+
+.error_msg{
+  color:red;
+  margin-left: 10px;
+}
+
+//EDIT
+#textarea {
+  background:red;
 }

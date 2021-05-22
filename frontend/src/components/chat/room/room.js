@@ -1,5 +1,9 @@
+import DotsM from '@/components/common/dots-menu.component.vue';
 export default {
-	name: "view_channel",
+	name: "view_room",
+	components: {
+		DotsM
+	},
 	data() {
 		return {
 			channel: Object,
@@ -30,7 +34,6 @@ export default {
 			this.existChannel = false;
 			this.isLoadMessages = false;
 			this.getMessages();
-
 		},
 		sendMessage() {
 			let data = document.getElementById("form-message").value;
@@ -38,6 +41,15 @@ export default {
 				this.$socket.emit("MESSAGE_CREATE", {
 					channel: this.channel,
 					message: data,
+				}, (responce) => {
+					if (responce.status !== 'success') {
+						const error_msg = document.getElementById('err-send-msg')
+						error_msg.innerHTML = '<p> Une erreur s\'est produite merci de réessayer </p>';
+						this.scroll();
+						setTimeout(() => {
+							error_msg.innerHTML = ''
+						}, 5000)
+					}
 				});
 				document.getElementById("form-message").value = "";
 			}
@@ -88,6 +100,13 @@ export default {
 			}
 			this.isLoadMessages = false;
 		},
+		editMessage(id, content) {
+			const msg = document.getElementById(`msg-${id}`)
+			msg.innerHTML = `<textarea class="textarea-edit" id="textarea" style="resize:none">${content}</textarea>`
+			setTimeout(() => {
+				msg.innerHTML = msg.textContent || msg.innerText
+			}, 3000)
+		}
 	},
 	beforeMount() {
 		this.channel = {

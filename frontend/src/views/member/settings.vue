@@ -252,6 +252,7 @@ img.button_close {
 
 <script>
 export default {
+  name: "user_settings",
   data() {
     return {
       user: null,
