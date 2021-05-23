@@ -87,9 +87,12 @@ export class ChatClass {
 			if (!channel_id) return reject(new Error('Missing channel id parameter'));
 			const user = await Member.getUserPublic(author);
 			if (!user) return reject('Member not found.')
-			db.query('INSERT INTO messages (type, author, content, attachement, channel_id) VALUES(?,?,?,?,?)', [type, author, content, attachement, channel_id], (err, result) => {
+			db.query('INSERT INTO messages (type, author, content, attachement, channel_id) VALUES(?,?,?,?,?);', [type, author, content, attachement, channel_id], (err, result) => {
 				if (err) return reject(err)
-				resolve(user)
+				db.query('SELECT LAST_INSERT_ID();', (err, result) => {
+					if (err) return reject(err);
+					resolve({ message: { id: result[0]['LAST_INSERT_ID()'] }, user: user });
+				})
 			});
 		});
 	}

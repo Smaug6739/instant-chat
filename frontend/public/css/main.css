@@ -73,6 +73,16 @@ a {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.textarea {
+  resize: none;
+  display: block;
+  border-radius: 0.7rem;
+  padding: 5px;
+  font-family: "Roboto", "Signika", sans-serif;
+  font-size: 16px;
+  width: 98%;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;

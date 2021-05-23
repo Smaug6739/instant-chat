@@ -31,8 +31,8 @@ export function auth(server: App, socket: Socket) {
 		}
 		return {
 			status: 'success',
-			userId: decoded.userId,
-			userPermissions: userPermissions
+			id: decoded.userId,
+			permissions: userPermissions
 		}
 
 	} catch (err) {

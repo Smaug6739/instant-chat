@@ -23,6 +23,9 @@ export default {
 		},
 	},
 	methods: {
+		text() {
+			console.log('text');
+		},
 		change() {
 			this.messages = [];
 			this.page = 1;
@@ -82,6 +85,7 @@ export default {
 					let newArray = [];
 					for (const msg of result.result) {
 						newArray.push({
+							message_id: msg.id,
 							author: msg.author,
 							content: msg.content,
 							member_avatar: msg.member_avatar,
@@ -100,12 +104,21 @@ export default {
 			}
 			this.isLoadMessages = false;
 		},
-		editMessage(id, content) {
-			const msg = document.getElementById(`msg-${id}`)
-			msg.innerHTML = `<textarea class="textarea-edit" id="textarea" style="resize:none">${content}</textarea>`
-			setTimeout(() => {
-				msg.innerHTML = msg.textContent || msg.innerText
-			}, 3000)
+		viewEdit(message_id) {
+			const msg = document.getElementById(`edit-${message_id}`)
+			msg.classList.remove('none')
+		},
+		editMessage(message_id) {
+			this.$socket.emit("MESSAGE_UPDATE", {
+				message_id: message_id,
+				channel: this.channel,
+				message_content: document.getElementById(`edit-${message_id}`).children[0].value
+			})
+			this.deleteEdit(message_id)
+		},
+		deleteEdit(id) {
+			const msg = document.getElementById(`edit-${id}`)
+			msg.classList.add('none')
 		}
 	},
 	beforeMount() {
@@ -129,12 +142,20 @@ export default {
 			if (data.channel === this.channel.id) {
 				this.noScroll = false;
 				this.messages.push({
+					message_id: data.message_id,
 					author: data.author,
 					content: data.content,
 					member_avatar: data.member_avatar,
 					member_color: data.member_color,
 					member_nickname: data.member_nickname
 				});
+			}
+		});
+		this.$socket.on("MESSAGE_UPDATE", (data) => {
+			const indexMsg = this.messages.map(msg => { return msg.message_id }).indexOf(data.message_id)
+			if (indexMsg) {
+				const msg = this.messages[indexMsg]
+				msg.content = data.message_content
 			}
 		});
 	},

@@ -82,12 +82,12 @@ export class App {
                     for (const eventFile of events) {
                         const getFileName = require(join(__dirname, `events/${dir}/${eventFile}`))
                         debug('[EVENT_LOADED]', '\x1b[45m', getFileName.infos.event);
-                        socket.on(getFileName.infos.event, (data: any) => {
+                        socket.on(getFileName.infos.event, (data: any, callback: Function) => {
                             debug('[EVENT_RECEVIED]', '\x1b[44m', getFileName.infos.event);
                             if (getFileName.infos.connection) {
                                 const authUser = auth(this, socket)
                                 if (authUser!.status === 'error') return debug('[EVENT_CONNECTION_ERROR]', '\x1b[41m', `${getFileName.infos.event} : ${authUser!.error}`)
-                                getFileName.run(this, socket, data, authUser)
+                                getFileName.run(this, socket, data, authUser, callback)
                             } else getFileName.run(this, socket, data)
                         });
                     }

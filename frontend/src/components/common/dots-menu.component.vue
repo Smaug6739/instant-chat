@@ -21,9 +21,6 @@ export default {
     },
   },
   methods: {
-    e() {
-      console.log("e");
-    },
     showDropdown() {
       const menu = document.getElementById(this.id);
       if (menu.classList.contains("none")) menu.classList.remove("none");
@@ -63,7 +60,8 @@ export default {
   position: absolute;
   display: block;
   width: 100px;
-  top: 35px;
+  top: 10px;
+  right: 10px;
   background-color: white;
   border: 1px solid black;
   border-radius: 6px;

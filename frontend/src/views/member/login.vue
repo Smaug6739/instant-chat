@@ -63,6 +63,9 @@ export default {
         for (const obj in result.result.member) {
           localStorage.setItem(obj, result.result.member[obj]);
         }
+        if (this.$socket.io.engine) {
+          this.$socket.io.engine.close();
+        }
         if (!this.$route.query.redirect) this.$router.push("/chats");
         else this.$router.push(this.$route.query.redirect);
       }
