@@ -183,7 +183,7 @@ export default {
 		});
 		this.$socket.on("MESSAGE_DELETE", (data) => {
 			const indexMsg = this.messages.map(msg => { return msg.message_id }).indexOf(data.message_id)
-			if (indexMsg) this.messages.splice(indexMsg, 1)
+			if (indexMsg != undefined) this.messages.splice(indexMsg, 1)
 		});
 	},
 };
