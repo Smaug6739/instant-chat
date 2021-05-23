@@ -23,9 +23,6 @@ export default {
 		},
 	},
 	methods: {
-		text() {
-			console.log('text');
-		},
 		change() {
 			this.messages = [];
 			this.page = 1;
@@ -46,7 +43,7 @@ export default {
 					message: data,
 				}, (responce) => {
 					if (responce.status !== 'success') {
-						const error_msg = document.getElementById('err-send-msg')
+						const error_msg = document.getElementById('err-msg')
 						error_msg.innerHTML = '<p> Une erreur s\'est produite merci de réessayer </p>';
 						this.scroll();
 						setTimeout(() => {
@@ -58,7 +55,7 @@ export default {
 			}
 		},
 		scroll() {
-			var div = document.getElementById("view-channel");
+			const div = document.getElementById("view-channel");
 			div.scrollTop = div.scrollHeight;
 		},
 		loadMessages(e) {
@@ -104,6 +101,7 @@ export default {
 			}
 			this.isLoadMessages = false;
 		},
+		//-------------------------------EDIT-------------------------------------
 		viewEdit(message_id) {
 			const msg = document.getElementById(`edit-${message_id}`)
 			msg.classList.remove('none')
@@ -113,12 +111,37 @@ export default {
 				message_id: message_id,
 				channel: this.channel,
 				message_content: document.getElementById(`edit-${message_id}`).children[0].value
-			})
+			}, (responce) => {
+				if (responce.status !== 'success') {
+					const error_msg = document.getElementById('err-msg')
+					error_msg.innerHTML = '<p> Une erreur s\'est produite merci de réessayer </p>';
+					this.scroll();
+					setTimeout(() => {
+						error_msg.innerHTML = ''
+					}, 5000)
+				}
+			});
 			this.deleteEdit(message_id)
 		},
 		deleteEdit(id) {
 			const msg = document.getElementById(`edit-${id}`)
 			msg.classList.add('none')
+		},
+		//-------------------------------DELETE-------------------------------------
+		deleteMessage(id) {
+			this.$socket.emit('MESSAGE_DELETE', {
+				channel_id: this.channel.id,
+				message_id: id
+			}, (responce) => {
+				if (responce.status !== 'success') {
+					const error_msg = document.getElementById('err-msg')
+					error_msg.innerHTML = '<p> Une erreur s\'est produite merci de réessayer </p>';
+					this.scroll();
+					setTimeout(() => {
+						error_msg.innerHTML = ''
+					}, 5000)
+				}
+			});
 		}
 	},
 	beforeMount() {
@@ -157,6 +180,10 @@ export default {
 				const msg = this.messages[indexMsg]
 				msg.content = data.message_content
 			}
+		});
+		this.$socket.on("MESSAGE_DELETE", (data) => {
+			const indexMsg = this.messages.map(msg => { return msg.message_id }).indexOf(data.message_id)
+			if (indexMsg) this.messages.splice(indexMsg, 1)
 		});
 	},
 };

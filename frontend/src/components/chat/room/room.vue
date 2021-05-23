@@ -24,7 +24,7 @@
                       <textarea
                         class="textarea"
                         v-model="message.content"
-                        @keyup.enter="text"
+                        @keyup.enter="editMessage(message.message_id)"
                       ></textarea
                       ><span
                         class="prop-choice"
@@ -52,7 +52,12 @@
                         >
                           Edit
                         </li>
-                        <li class="li-dots-menu">Delete</li>
+                        <li
+                          class="li-dots-menu"
+                          @click="deleteMessage(message.message_id)"
+                        >
+                          Delete
+                        </li>
                       </template>
                     </DotsM>
                   </div>
@@ -62,7 +67,7 @@
           </ul>
         </div>
         <div>
-          <div id="err-send-msg" class="error_msg"></div>
+          <div id="err-msg" class="error_msg"></div>
           <input
             type="text"
             class="form-control input-message"

@@ -6,18 +6,16 @@ export async function run(server: any, socket: any, data: IObject, auth: IObject
 
 	Chat.postMessage(
 		`01`,
-		auth.userId,
+		auth.id,
 		data.message,
 		'',
 		data.channel.id
 	)
 		.then((result) => {
-			console.log(result);
-
 			server.io.to(`01${data.channel.id}`).emit('MESSAGE_CREATE', {
 				message_id: result.message.id,
 				channel: data.channel.id,
-				author: auth.userId,
+				author: auth.id,
 				content: data.message,
 				member_avatar: result.user.member_avatar,
 				member_color: result.user.member_color,
