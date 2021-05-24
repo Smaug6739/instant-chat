@@ -7,6 +7,7 @@
             <li v-for="message of messages" :key="message">
               <div
                 v-bind:class="me == message.author ? 'from-me' : 'from-them'"
+                :id="'msg-' + message.message_id"
               >
                 <img
                   v-if="message.member_avatar"
@@ -23,7 +24,7 @@
                     <div class="none" :id="'edit-' + message.message_id">
                       <textarea
                         class="textarea"
-                        v-model="message.content"
+                        v-text="message.content"
                         @keyup.enter="editMessage(message.message_id)"
                       ></textarea
                       ><span

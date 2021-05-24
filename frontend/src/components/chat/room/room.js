@@ -15,15 +15,12 @@ export default {
 			existChannel: false,
 			isLoadMessages: false,
 			oldMessages: true,
+			docReady: false,
+			isUpdateMsg: false,
 		};
 	},
 	watch: {
 		$route() {
-			this.change()
-		},
-	},
-	methods: {
-		change() {
 			this.messages = [];
 			this.page = 1;
 			this.noScroll = false;
@@ -34,7 +31,12 @@ export default {
 			this.existChannel = false;
 			this.isLoadMessages = false;
 			this.getMessages();
+			this.oldMessages = true;
+			this.docReady = false;
+			this.isUpdateMsg = false;
 		},
+	},
+	methods: {
 		sendMessage() {
 			let data = document.getElementById("form-message").value;
 			if (data) {
@@ -60,13 +62,16 @@ export default {
 		},
 		loadMessages(e) {
 			if (e.target.scrollTop === 0) {
+				if (!this.docReady) return console.log('doc no ready');
 				this.page += 1;
+				console.log(`Page ++`);
 				this.noScroll = true;
 				this.lastScroll = document.getElementById("view-channel").scrollHeight;
 				this.getMessages();
 			}
 		},
 		async getMessages() {
+			console.log(`Page : ${this.page}`);
 			if (this.isLoadMessages) return; //On ne charge pas si un chargement est déja en cours.
 			this.isLoadMessages = true;
 			if (!this.oldMessages && this.messages.length) return; //Si il n'y a pas d'anciens messages mais que il y a au moins 1 message
@@ -79,6 +84,7 @@ export default {
 				const result = await responce.json();
 				if (result && result.status === "success") {
 					if (!result.result.length) this.oldMessages = false;
+					this.docReady = true;
 					let newArray = [];
 					for (const msg of result.result) {
 						newArray.push({
@@ -151,14 +157,18 @@ export default {
 		this.getMessages();
 	},
 	async updated() {
-		if (!this.noScroll) {
+		console.log(1);
+		if (!this.noScroll) { //Scroll to bottom
+			console.log(2);
 			this.scroll();
-		} else {
+		} else if (!this.isUpdateMsg) {
+			console.log(3);
 			const el = document.getElementById("view-channel");
 			const newStroll = el.scrollHeight;
 			const pos = newStroll - this.lastScroll;
 			el.scrollTop = pos;
 		}
+		this.isUpdateMsg = false;
 	},
 	mounted() {
 		this.$socket.on("MESSAGE_CREATE", (data) => {
@@ -176,14 +186,15 @@ export default {
 		});
 		this.$socket.on("MESSAGE_UPDATE", (data) => {
 			const indexMsg = this.messages.map(msg => { return msg.message_id }).indexOf(data.message_id)
-			if (indexMsg) {
+			if (indexMsg != -1) {
 				const msg = this.messages[indexMsg]
+				if (this.messages[indexMsg].author == this.me) this.isUpdateMsg = true;
 				msg.content = data.message_content
 			}
 		});
 		this.$socket.on("MESSAGE_DELETE", (data) => {
 			const indexMsg = this.messages.map(msg => { return msg.message_id }).indexOf(data.message_id)
-			if (indexMsg != undefined) this.messages.splice(indexMsg, 1)
+			if (indexMsg != -1) this.messages.splice(indexMsg, 1)
 		});
 	},
 };

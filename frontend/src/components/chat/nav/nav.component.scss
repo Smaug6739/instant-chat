@@ -1,0 +1,99 @@
+@import "../../../../public/scss/theme-variables";
+@import "../../../../public/scss/mixins";
+nav{
+	display:flex;
+	flex-direction: column;
+	justify-content:space-between;
+}
+#nav-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: solid white 1.2px;
+}
+.items-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  min-width: 200px;
+  .circle {
+    @include circle();
+  }
+}
+.btn-burger {
+  margin: 15px;
+}
+#user-container {
+  height: 50px;
+  background-color: $color-end;
+  display: flex;
+  span {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+.circle {
+  @include circle(red, 1);
+}
+@media screen and (max-width: 900px) {
+  .none-mobile {
+    display: none !important;
+  }
+  .btn-burger {
+    margin: 5px;
+  }
+}
+@media screen and (min-width: 900px) {
+  .btn-burger {
+    display: none;
+  }
+}
+
+.collapsible {
+  //background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+
+.content {
+  //padding: 0 18px;
+  //background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+ul,li{
+	list-style: none;
+	margin: 0;
+	padding: 0
+}
+.c-name{
+	display: flex;
+}
+
+.cat-opened-a{
+	transform:rotate(0deg);
+	transition-duration: 500ms;
+}
+.cat-closed-a{
+	transform:rotate(-90deg);
+	transition-duration: 500ms;
+}
+
+.cat-opened{
+	transform:rotate(0deg);
+}
