@@ -1,0 +1,98 @@
+@import "../../../../public/scss/theme-variables";
+@import "../../../../public/scss/mixins";
+#nav-container{
+  display:block;
+  height:100vh;
+  width: 220px;
+  overflow-y:scroll;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+  display: none;
+  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+}
+nav{
+	display:flex;
+	flex-direction: column;
+	justify-content:space-between;
+  border-right: solid white 1.2px ;
+  height:100%;
+  box-sizing: border-box;
+}
+.app-title{
+  background-color: $black;
+}
+.items-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  min-width: 200px;
+  .circle {
+    @include circle();
+  }
+}
+
+#user-container {
+  height: 50px;
+  background-color: $color-end;
+  display: flex;
+  span {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+.circle {
+  @include circle(red, 1);
+}
+
+
+.collapsible {
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+ul,li{
+	list-style: none;
+	margin: 0;
+	padding: 0
+}
+.c-name{
+	display: flex;
+  cursor: pointer;
+}
+
+
+
+.cat-opened-a{
+	transform:rotate(0deg);
+	transition-duration: 500ms;
+}
+.cat-closed-a{
+	transform:rotate(-90deg);
+	transition-duration: 500ms;
+}
+
+.cat-opened{
+	transform:rotate(0deg);
+}

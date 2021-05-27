@@ -54,7 +54,7 @@ export class App {
     private handleEvents(): void {
         const io = new Server(this.httpServer, {
             cors: {
-                origin: "http://192.168.0.30:8080",
+                origin: "http://192.168.0.31:8080",
                 methods: ["GET", "POST"],
                 credentials: true,
             },

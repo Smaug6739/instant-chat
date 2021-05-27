@@ -6,7 +6,7 @@ export default {
 	},
 	data() {
 		return {
-			channel: Object,
+			channel: this.$route.params.room,
 			messages: [],
 			page: 1,
 			noScroll: false,
@@ -26,7 +26,7 @@ export default {
 			this.noScroll = false;
 			this.lastScroll = null;
 			this.channel = {
-				id: this.$route.params.room
+				id: this.$route.params.room || null
 			}
 			this.existChannel = false;
 			this.isLoadMessages = false;
@@ -62,16 +62,16 @@ export default {
 		},
 		loadMessages(e) {
 			if (e.target.scrollTop === 0) {
-				if (!this.docReady) return console.log('doc no ready');
+				if (!this.docReady) return;
 				this.page += 1;
-				console.log(`Page ++`);
 				this.noScroll = true;
 				this.lastScroll = document.getElementById("view-channel").scrollHeight;
 				this.getMessages();
 			}
 		},
 		async getMessages() {
-			console.log(`Page : ${this.page}`);
+			const channels = await this.getChannels()
+			if (!this.channel.id) return this.$router.push(`/room/${channels[0].id}`)
 			if (this.isLoadMessages) return; //On ne charge pas si un chargement est déja en cours.
 			this.isLoadMessages = true;
 			if (!this.oldMessages && this.messages.length) return; //Si il n'y a pas d'anciens messages mais que il y a au moins 1 message
@@ -150,19 +150,13 @@ export default {
 			});
 		}
 	},
-	beforeMount() {
-		this.channel = {
-			id: this.$route.params.room
-		}
+	async beforeMount() {
 		this.getMessages();
 	},
 	async updated() {
-		console.log(1);
 		if (!this.noScroll) { //Scroll to bottom
-			console.log(2);
 			this.scroll();
 		} else if (!this.isUpdateMsg) {
-			console.log(3);
 			const el = document.getElementById("view-channel");
 			const newStroll = el.scrollHeight;
 			const pos = newStroll - this.lastScroll;

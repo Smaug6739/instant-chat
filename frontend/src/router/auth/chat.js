@@ -1,7 +1,7 @@
 import chats from '@/views/chat/chats/chats.vue';
 const routes = [
 	{
-		path: '/chats/:room?',
+		path: '/:type/:room?',
 		name: 'List of chats',
 		component: chats,
 		meta: {
