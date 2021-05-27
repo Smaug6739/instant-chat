@@ -5,7 +5,6 @@ export default {
 			if (channels[0]) {
 				return channels;
 			} else {
-				console.log('else');
 				try {
 					const responce = await fetch(`${this.$store.state.host}api/v1/chat/rooms`);
 					if (!responce) this.chats = "none";

@@ -12,7 +12,7 @@
           <router-link to="/room"><ChatsIcon /></router-link>
         </li>
         <li class="icon">
-          <SettingsIcon />
+          <router-link to="/settings"><SettingsIcon /></router-link>
         </li>
       </ul>
     </div>

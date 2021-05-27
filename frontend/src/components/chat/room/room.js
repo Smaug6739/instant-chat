@@ -6,7 +6,9 @@ export default {
 	},
 	data() {
 		return {
-			channel: this.$route.params.room,
+			channel: {
+				id: this.$route.params.room
+			},
 			messages: [],
 			page: 1,
 			noScroll: false,
@@ -20,13 +22,14 @@ export default {
 		};
 	},
 	watch: {
-		$route() {
+		$route(to) {
+			if (to.params.type != 'room') return;
 			this.messages = [];
 			this.page = 1;
 			this.noScroll = false;
 			this.lastScroll = null;
 			this.channel = {
-				id: this.$route.params.room || null
+				id: this.$route.params.room
 			}
 			this.existChannel = false;
 			this.isLoadMessages = false;
