@@ -1,0 +1,47 @@
+@import "../../../../public/scss/theme-variables";
+@import "../../../../public/scss/mixins";
+ul,
+li {
+  list-style: none;
+}
+.none {
+  display: none;
+}
+#user-container {
+  display: flex;
+  width: 85%;
+  margin: auto;
+  margin: 30px;
+}
+.views-container {
+  margin-left: 50px;
+  width: 100%;
+}
+nav {
+  width: 250px;
+  ul {
+    li {
+      padding: 10px;
+      background: $background-element-light;
+      border: 0.1px solid white;
+    }
+  }
+}
+
+#v-1 {
+  ul {
+    background-color: $background-element-light;
+    box-shadow: 0px 3px 10px black;
+    padding: 20px;
+    width: 70%;
+    margin: auto;
+  }
+	.user-infos{
+		width:100%;
+		margin:auto;
+		background:blue;
+	}
+  .avatar {
+    @include circle-avatar(red, 80px);
+  }
+}

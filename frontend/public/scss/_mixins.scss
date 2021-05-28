@@ -14,3 +14,21 @@
     height: 35px;
   }
 }
+
+@mixin circle-avatar($color:red, $size:0) {
+	background:$color;
+  font-size: 1.5rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex; /* or inline-flex */
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  text-transform: uppercase;
+  @if $size !=0 {
+    width: $size;
+    height: $size;
+    font-size: $size / 2;
+  }
+}
