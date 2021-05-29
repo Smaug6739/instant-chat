@@ -1,8 +1,10 @@
 import { MemberClass } from '../assets/classes/member';
 import { IObject, IMember, IUserInfos } from '../types';
-import { checkAndChange } from '../utils/functions';
+import { checkAndChange, success } from '../utils/functions';
 import { sign } from 'jsonwebtoken';
 import { config } from '../config';
+import convertAvatar from "../utils/sharp.avatar"
+import deleteOldAvatar from "../utils/delete.avatar"
 const Members = new MemberClass();
 
 export function auth(req: IObject, res: IObject): void {
@@ -51,12 +53,14 @@ export function getMember(req: IObject, res: IObject): void {
         .then(result => res.status(200).json(checkAndChange(result)))
         .catch(error => res.json(checkAndChange(error)))
 }
-export function createMember(req: IObject, res: IObject): void {
+export async function createMember(req: IObject, res: IObject): Promise<void> {
+    const avatar = await convertAvatar(req.file.filename, 150)
+    if (!avatar) return res.status(500).end()
     Members.add(
         req.body.nickname,
         0,
         0,
-        req.body.avatar,
+        req.file.filename,
         req.body.password,
         req.body.first_name,
         req.body.last_name,
@@ -69,13 +73,15 @@ export function createMember(req: IObject, res: IObject): void {
         .catch(error => res.json(checkAndChange(error)))
 }
 
-export function updateMember(req: IObject, res: IObject): void {
+export async function updateMember(req: IObject, res: IObject): Promise<void> {
+    const avatar = await convertAvatar(req.file.filename, 150)
+    if (!avatar) return res.status(500).end()
     const newSettings: IMember = {
         id: req.body.user_id,
         nickname: req.body.nickname,
         permissions: req.body.permissions,
         banishment: req.body.banishment,
-        avatar: req.body.avatar,
+        avatar: req.file.filename,
         password: req.body.password,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -88,7 +94,10 @@ export function updateMember(req: IObject, res: IObject): void {
         permissions: req.user.permissions || [{ value: 0, permission: 'NONE' }]
     }
     Members.put(userInfos, req.params.userId, newSettings)
-        .then(result => res.status(200).json(checkAndChange(result)))
+        .then((result: any) => {
+            deleteOldAvatar(result.old.avatar)
+            res.status(200).json(checkAndChange(result.user))
+        })
         .catch(error => res.json(checkAndChange(error)))
 }
 

@@ -35,6 +35,13 @@
           id="form-password2"
           @keyup="matchPasswords('form-password1', 'form-password2')"
         />
+        <label for="avatar">Avatar : *</label>
+        <input
+          type="file"
+          class="form-control"
+          name="avatar"
+          id="form-avatar"
+        />
         <div id="form-password2-error"></div>
         <div class="btns have-account">
           <router-link to="/member/login">You have an account ?</router-link>

@@ -139,27 +139,21 @@ export default {
 			}
 		},
 		async post() {
-			const body = JSON.stringify({
-				nickname: document.getElementById("form-username").value,
-				password: document.getElementById("form-password1").value,
-				first_name: document.getElementById("form-first_name").value,
-				last_name: document.getElementById("form-last_name").value,
-				age: document.getElementById("form-age").value,
-				phone_number: document.getElementById("form-phone_number").value,
-				email: document.getElementById("form-email").value,
-			});
-			const responce = await fetch("http://192.168.0.30:3000/api/v1/members", {
+			const body = new FormData();
+			body.append('nickname', document.getElementById("form-username").value)
+			body.append('avatar', document.getElementById("form-avatar").files[0])
+			body.append('password', document.getElementById("form-password1").value)
+			body.append('first_name', document.getElementById("form-first_name").value)
+			body.append('last_name', document.getElementById("form-last_name").value)
+			body.append('phone_number', document.getElementById("form-phone_number").value)
+			body.append('email', document.getElementById("form-email").value)
+			const responce = await fetch(`${this.$store.state.host}api/v1/members`, {
 				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
 				credentials: "include",
 				withCredentials: true,
 				body: body,
 			});
 			const result = await responce.json();
-			console.log(result);
 			if (result && result.status === "success")
 				this.$router.push("/member/login");
 		},

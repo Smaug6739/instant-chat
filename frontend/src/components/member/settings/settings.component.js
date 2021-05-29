@@ -16,12 +16,10 @@ export default {
 	},
 	async beforeMount() {
 		const res = await fetch(
-			`${this.$store.state.host}api/v1/members/${this.$getUser().id}`,
-			{
-				credentials: "include",
-				withCredentials: true,
-			}
-		);
+			`${this.$store.state.host}api/v1/members/${this.$getUser().id}`, {
+			credentials: "include",
+			withCredentials: true,
+		});
 		const result = await res.json();
 		this.member = result.result;
 	},

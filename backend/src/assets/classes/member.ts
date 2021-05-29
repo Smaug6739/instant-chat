@@ -144,9 +144,9 @@ export class MemberClass {
                 }
                 db.query('UPDATE `members` SET `nickname` = ?, `permissions` = ?, `banishment` = ?, `avatar` = ?, `password` = ?, `first_name` = ?, `last_name` = ?, `age` = ?, `phone_number` = ?, `email` = ?, `date_insert` = ? WHERE (`id` = ?);',
                     [userSettings.nickname, userSettings.permissions, userSettings.banishment, userSettings.avatar, userSettings.password, userSettings.first_name, userSettings.last_name, userSettings.age, userSettings.phone_number, userSettings.email, userSettings.date_insert, userId],
-                    (err, result) => {
+                    (err) => {
                         if (err) return reject(new Error(err.message))
-                        resolve(userSettings)
+                        resolve({ user: userSettings, old: result[0] })
                     })
             })
         })

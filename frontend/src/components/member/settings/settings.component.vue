@@ -8,15 +8,14 @@
     </nav>
     <main class="views-container">
       <div id="v-1" class="view" v-if="member">
-        <ul class="member-infos">
-          <li class="field user-infos">
-            <span class="avatar">{{ member.member_nickname.slice(0, 1) }}</span>
-          </li>
-          <li class="field">
-            <span class="field-title">Username : </span>
-            <span class="field-value"> {{ member.member_nickname }} </span>
-          </li>
-        </ul>
+        <div class="user-container">
+          <span class="avatar field">{{
+            member.member_nickname.slice(0, 1)
+          }}</span>
+          <h4 class="field field-username">
+            Username : {{ member.member_nickname }}
+          </h4>
+        </div>
       </div>
       <div id="v-2" class="view none">view two</div>
     </main>
