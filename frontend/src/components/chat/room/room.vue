@@ -12,6 +12,7 @@
                 <img
                   v-if="message.member_avatar"
                   :src="hostAvatar + message.member_avatar"
+                  class="user-avatar"
                 />
                 <span
                   v-else

@@ -54,13 +54,13 @@ export function getMember(req: IObject, res: IObject): void {
         .catch(error => res.json(checkAndChange(error)))
 }
 export async function createMember(req: IObject, res: IObject): Promise<void> {
-    const avatar = await convertAvatar(req.file.filename, 150)
+    const avatar = await convertAvatar(req.file?.filename, 150)
     if (!avatar) return res.status(500).end()
     Members.add(
         req.body.nickname,
         0,
         0,
-        req.file.filename,
+        req.file?.filename,
         req.body.password,
         req.body.first_name,
         req.body.last_name,
@@ -74,14 +74,15 @@ export async function createMember(req: IObject, res: IObject): Promise<void> {
 }
 
 export async function updateMember(req: IObject, res: IObject): Promise<void> {
-    const avatar = await convertAvatar(req.file.filename, 150)
+    const avatar = await convertAvatar(req.file?.filename, 150);
+
     if (!avatar) return res.status(500).end()
     const newSettings: IMember = {
         id: req.body.user_id,
         nickname: req.body.nickname,
         permissions: req.body.permissions,
         banishment: req.body.banishment,
-        avatar: req.file.filename,
+        avatar: req.file?.filename,
         password: req.body.password,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -95,7 +96,7 @@ export async function updateMember(req: IObject, res: IObject): Promise<void> {
     }
     Members.put(userInfos, req.params.userId, newSettings)
         .then((result: any) => {
-            deleteOldAvatar(result.old.avatar)
+            deleteOldAvatar(result.old.member_avatar)
             res.status(200).json(checkAndChange(result.user))
         })
         .catch(error => res.json(checkAndChange(error)))

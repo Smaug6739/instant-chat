@@ -3,14 +3,14 @@
     <Nav>
       <template v-slot:sub-nav> <RoomsList /></template>
     </Nav>
-    <div v-if="type === 'room'" class="room">
-      <ViewChannel />
+    <div class="views">
+      <div v-if="type === 'room'" class="view">
+        <ViewChannel />
+      </div>
+      <div v-else-if="type === 'settings'" class="view">
+        <AccountSettings />
+      </div>
     </div>
-    <div v-else-if="type === 'settings'" class="room">
-      <AccountSettings />
-    </div>
-
-    <div></div>
   </div>
 </template>
 

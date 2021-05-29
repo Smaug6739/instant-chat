@@ -1,8 +1,11 @@
 @mixin circle($color:red, $min:0) {
 	background:$color;
   font-size: 1.5rem;
+  min-width: 45px;
+  min-height: 45px;
   width: 45px;
   height: 45px;
+  
   border-radius: 50%;
   display: flex; /* or inline-flex */
   align-items: center;
@@ -31,4 +34,13 @@
     height: $size;
     font-size: $size / 2;
   }
+}
+
+@mixin user-avatar($size){
+  width: $size;
+  height: $size;
+  border: .5px solid black;
+  border-radius: 50%;
+  margin: 5px;
+
 }

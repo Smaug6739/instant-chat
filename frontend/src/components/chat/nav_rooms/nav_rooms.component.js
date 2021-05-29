@@ -5,6 +5,7 @@ export default {
 	name: "Chats list",
 	data() {
 		return {
+			hostAvatar: this.$store.state.hostAvatar,
 			chats: null,
 			user: this.$getUser(),
 		};

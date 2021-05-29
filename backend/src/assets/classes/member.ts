@@ -127,23 +127,22 @@ export class MemberClass {
                 if (newSettings.permissions && !hasPermissions(user.permissions, ['ADMINISTRATOR'])) return reject(new Error('You don\'t have permissions for change permissions value.'))
                 if (newSettings.banishment && !hasPermissions(user.permissions, ['BAN_MEMBERS'])) return reject(new Error('You don\'t have permissions for change banishment value.'))
                 if (newSettings.password) passwordHash = await hash(newSettings.password, 10)
-                else passwordHash = result[0].password
+                else passwordHash = result[0].member_password
                 const userSettings: IMember = {
                     id: result[0].id,
-                    nickname: newSettings.nickname || result[0].nickname,
-                    permissions: newSettings.permissions || result[0].permissions,
-                    banishment: newSettings.banishment || result[0].banishment,
-                    avatar: newSettings.avatar || result[0].avatar,
+                    nickname: newSettings.nickname || result[0].member_nickname,
+                    permissions: newSettings.permissions || result[0].member_permissions,
+                    banishment: newSettings.banishment || result[0].member_banishment,
+                    avatar: newSettings.avatar ? `${newSettings.avatar}.webp` : result[0].member_avatar,
                     password: passwordHash,
-                    first_name: newSettings.first_name || result[0].first_name,
+                    first_name: newSettings.first_name || result[0].member_first_name,
                     last_name: newSettings.last_name || result[0].last_name,
                     age: newSettings.age || result[0].age,
-                    phone_number: newSettings.phone_number || result[0].phone_number,
-                    email: newSettings.email || result[0].email,
-                    date_insert: result[0].date_insert
+                    phone_number: newSettings.phone_number || result[0].member_phone_number,
+                    email: newSettings.email || result[0].member_email,
                 }
-                db.query('UPDATE `members` SET `nickname` = ?, `permissions` = ?, `banishment` = ?, `avatar` = ?, `password` = ?, `first_name` = ?, `last_name` = ?, `age` = ?, `phone_number` = ?, `email` = ?, `date_insert` = ? WHERE (`id` = ?);',
-                    [userSettings.nickname, userSettings.permissions, userSettings.banishment, userSettings.avatar, userSettings.password, userSettings.first_name, userSettings.last_name, userSettings.age, userSettings.phone_number, userSettings.email, userSettings.date_insert, userId],
+                db.query('UPDATE `members` SET `member_nickname` = ?, `member_permissions` = ?, `member_banishment` = ?, `member_avatar` = ?, `member_password` = ?, `member_first_name` = ?, `member_last_name` = ?, `member_age` = ?, `member_phone_number` = ?, `member_email` = ? WHERE (`member_id` = ?);',
+                    [userSettings.nickname, userSettings.permissions, userSettings.banishment, userSettings.avatar, userSettings.password, userSettings.first_name, userSettings.last_name, userSettings.age, userSettings.phone_number, userSettings.email, userId],
                     (err) => {
                         if (err) return reject(new Error(err.message))
                         resolve({ user: userSettings, old: result[0] })

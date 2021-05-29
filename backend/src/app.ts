@@ -38,6 +38,7 @@ export class App {
                 debug('[ROUTE_LOADED]', '\x1b[45m', `Route chargée : /api/v${getFileName.infos.version}/${getFileName.infos.route}`);
             }
         })
+        this.app.use('/cdn', express.static(join(__dirname, '../public/uploads')));
     }
     private handleMiddlewares(): void {
         this.app.use(express.urlencoded({ extended: true }));
@@ -98,41 +99,5 @@ export class App {
         this.handleMiddlewares();
         this.handleRoutes();
         this.handleEvents();
-        // this.app.listen(this.port, () => {
-        //     console.log(`Started on port ${this.port}`)
-        // })
-        // const io = new Server(this.httpServer, {
-        //     cors: {
-        //         origin: "http://localhost:8080",
-        //         methods: ["GET", "POST"],
-        //         credentials: true,
-        //     },
-        // });
-        // setInterval(() => {
-        //     io.emit('testsss', 't');
-        //     console.log('emited');
-        // }, 5000)
-        // function auth(socket: Socket) {
-        //     const connectUser = sessionsMap.get(socket.id);
-        //     if (connectUser) console.log('\x1b[42m', 'USER AUTHENTICATED', '\x1b[0m');
-        //     else {
-        //         console.log('\x1b[41m', 'CONNECTION_REQUIRE', '\x1b[0m');
-        //         io.to(socket.id).emit('CONNECTION_REQUIRE')
-        //     }
-        // }
-        // io.on('connection', (socket) => {
-        //     console.log('Connection : ' + socket.id);
-
-        //     socket.on('CONNECTION_USER', (s) => {
-        //         sessionsMap.set(socket.id, {
-        //             user_id: s.authentification.user_id,
-        //             user_token: s.authentification.user_token
-        //         })
-        //     })
-        //     // socket.on('test', () => {
-        //     //     auth(socket)
-        //     // })
-        // })
-
     }
 }

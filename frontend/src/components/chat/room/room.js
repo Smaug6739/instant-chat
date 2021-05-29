@@ -6,6 +6,7 @@ export default {
 	},
 	data() {
 		return {
+			hostAvatar: this.$store.state.hostAvatar,
 			channel: {
 				id: this.$route.params.room
 			},

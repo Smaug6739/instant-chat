@@ -10,7 +10,7 @@ li {
 #user-container {
   display: flex;
   flex-wrap: wrap;
-  width: 85%;
+  width: 90%;
   margin: 30px;
 }
 
@@ -49,13 +49,49 @@ nav {
     @include circle-avatar(red, 80px);
   }
 }
-
+#v-2{
+  background-color: $background-element-light;
+  box-shadow: 0px 3px 10px black;
+  padding: 20px;
+  width: 80%;
+  min-width: 450px;
+  margin:auto;
+  text-align:center;
+  .field{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 10px;
+    label{padding:.375rem .75rem;}
+    input{
+      max-width: 80%;
+      margin-left:auto;
+    }
+  }
+  .btn-update{
+    width: 50%;
+    margin: auto;
+    border-radius: 1.5rem;
+    margin-top: 25px;
+  }
+}
 @media screen and (max-width:1000px){
   #v-1{
     margin-top: 30px;
     .user-container{
       width: 100%;
       min-width: 0;
+    }
+  }
+  #v-2{
+    margin-top: 30px;
+    width: 100%;
+    min-width: 0;
+    label{margin-right: 25px;}
+    input{
+      width: 100%;
+      max-width: 100% !important;
+      margin-left:0 !important;
     }
   }
 }
