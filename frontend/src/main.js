@@ -9,6 +9,9 @@ import store from './store';
 import utilPlugin from './util/functions';
 
 import getItem from './plugins/getItem.js';
+import './plugins/progress/progress.css';
+
+
 
 import socket from './socket';
 
@@ -16,6 +19,7 @@ import socket from './socket';
 
 createApp(App)
 	.use(socket)
+	//.use(loader)
 	.use(utilPlugin)
 	.use(getItem)
 	.use(store)

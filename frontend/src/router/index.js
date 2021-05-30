@@ -4,7 +4,7 @@ import memberRoutes from './member/member';
 import chatRoutes from './auth/chat';
 
 import { getCookie } from '../util/functions';
-
+import Nprogress from '../plugins/progress/progress'
 const routes = [
   {
     path: '/',
@@ -31,6 +31,17 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+    Nprogress.start(document)
+  }
+  next()
+})
+
+router.afterEach(() => {
+  Nprogress.stop()
+})
+
 router.beforeEach((to, _, next) => {
   const authenticated = getCookie('user_auth')
   const needAuth = to.matched.some(record => record.meta.auth)
@@ -42,4 +53,6 @@ router.beforeEach((to, _, next) => {
   }
   next()
 })
+
+
 export default router
