@@ -1,11 +1,6 @@
 <template>
   <div id="user-container">
-    <nav>
-      <ul>
-        <li @click="changeView('v-1')">Account</li>
-        <li @click="changeView('v-2')">Settings</li>
-      </ul>
-    </nav>
+    <Nav />
     <main class="views-container">
       <div id="v-1" class="view" v-if="member">
         <div class="user-container">
@@ -82,6 +77,9 @@
         <span class="btn btn-primary btn-update" @click="updateAccount"
           >Update</span
         >
+        <div v-if="alert.type && alert.msg">
+          <Alert :type="alert.type" :message="alert.msg" />
+        </div>
       </div>
     </main>
   </div>

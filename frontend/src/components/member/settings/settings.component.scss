@@ -1,9 +1,6 @@
 @import "../../../../public/scss/theme-variables";
 @import "../../../../public/scss/mixins";
-ul,
-li {
-  list-style: none;
-}
+
 .none {
   display: none;
 }
@@ -14,17 +11,6 @@ li {
   margin: 30px;
 }
 
-nav {
-  width: 20%;
-  min-width: 170px;
-  ul {
-    li {
-      padding: 10px;
-      background: $background-element-light;
-      border: 0.1px solid white;
-    }
-  }
-}
 .views-container{width:80%;}
 #v-1{
   width:100%;

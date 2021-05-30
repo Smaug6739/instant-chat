@@ -1,6 +1,19 @@
+import Nav from '../nav/nav.component.vue';
+import Alert from '@/components/common/alert.component.vue';
 export default {
+	components: {
+		Nav,
+		Alert
+	},
 	data() {
-		return { member: null, hostAvatar: this.$store.state.hostAvatar };
+		return {
+			member: null,
+			hostAvatar: this.$store.state.hostAvatar,
+			alert: {
+				type: null,
+				msg: null
+			}
+		};
 	},
 	methods: {
 		changeView(newView) {
@@ -28,7 +41,17 @@ export default {
 				body: body,
 			});
 			const result = await responce.json();
-			console.log(result);
+			if (result.status === "success") {
+				this.alert = {
+					type: "success",
+					msg: "Successfully update your account"
+				}
+			} else {
+				this.alert = {
+					type: "alert",
+					msg: "An error occurred while updating your account"
+				}
+			}
 		}
 	},
 	async beforeMount() {
