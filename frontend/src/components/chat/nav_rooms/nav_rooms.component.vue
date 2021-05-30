@@ -35,7 +35,7 @@
                     </span>
                   </div>
                   <h6>
-                    <router-link :to="'/room/' + chat.id">
+                    <router-link :to="'/app/room/' + chat.id">
                       {{ chat.name }}
                     </router-link>
                   </h6>

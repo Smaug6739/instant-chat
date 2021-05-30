@@ -10,6 +10,11 @@
       <div v-else-if="type === 'settings'" class="view">
         <AccountSettings />
       </div>
+      <div v-else>
+        <h1 style="text-align: center; margin-top: 200px">
+          Welcome to instant chat application
+        </h1>
+      </div>
     </div>
   </div>
 </template>

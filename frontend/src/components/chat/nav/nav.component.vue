@@ -9,10 +9,10 @@
           <FriendsIcon />
         </li>
         <li class="icon">
-          <router-link to="/room" class="link"><ChatsIcon /></router-link>
+          <router-link to="/app/room" class="link"><ChatsIcon /></router-link>
         </li>
         <li class="icon">
-          <router-link to="/settings" class="link"
+          <router-link to="/app/settings" class="link"
             ><SettingsIcon />
           </router-link>
         </li>

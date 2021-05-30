@@ -33,12 +33,27 @@
           >You don't have an account ?</router-link
         >
       </div>
+      <div id="err-login" v-if="alert_visible">
+        <Alert
+          type="error"
+          :message="error_msg"
+          :visible="alert_visible"
+          @CLOSE_ALERT="closeAlert"
+        />
+      </div>
     </div>
   </div>
 </template>
 <script>
+import Alert from '@/components/common/alert.component.vue'
 export default {
   name: "View login",
+  data(){
+    return{
+      error_msg : null,
+      alert_visible : false
+    }
+  },
   methods: {
     async connect() {
       const content = JSON.stringify({
@@ -66,11 +81,20 @@ export default {
         if (this.$socket.io.engine) {
           this.$socket.io.engine.close();
         }
-        if (!this.$route.query.redirect) this.$router.push("/chats");
+        if (!this.$route.query.redirect) this.$router.push("/app");
         else this.$router.push(this.$route.query.redirect);
+      }else{
+        this.alert_visible = true
+        this.error_msg = "Username or password incorect"
       }
     },
+    closeAlert(){
+      this.alert_visible = false
+    }
   },
+  components:{
+      Alert
+  }
 };
 </script>
 
@@ -153,5 +177,8 @@ input {
 }
 input:focus {
   border-bottom: solid #fff 1px !important;
+}
+.none {
+  display: none;
 }
 </style>

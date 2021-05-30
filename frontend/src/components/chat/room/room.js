@@ -75,7 +75,7 @@ export default {
 		},
 		async getMessages() {
 			const channels = await this.getChannels()
-			if (!this.channel.id) return this.$router.push(`/room/${channels[0].id}`)
+			if (!this.channel.id) return this.$router.push(`/app/room/${channels[0].id}`)
 			if (this.isLoadMessages) return; //On ne charge pas si un chargement est déja en cours.
 			this.isLoadMessages = true;
 			if (!this.oldMessages && this.messages.length) return; //Si il n'y a pas d'anciens messages mais que il y a au moins 1 message

@@ -12,7 +12,7 @@
                 <img
                   v-if="message.member_avatar"
                   :src="hostAvatar + message.member_avatar"
-                  class="user-avatar"
+                  class="user-avatar order"
                 />
                 <span
                   v-else

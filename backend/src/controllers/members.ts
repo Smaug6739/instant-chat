@@ -96,7 +96,7 @@ export async function updateMember(req: IObject, res: IObject): Promise<void> {
     }
     Members.put(userInfos, req.params.userId, newSettings)
         .then((result: any) => {
-            deleteOldAvatar(result.old.member_avatar)
+            if (req.file?.filename && result.old.member_avatar) deleteOldAvatar(result.old.member_avatar)
             res.status(200).json(checkAndChange(result.user))
         })
         .catch(error => res.json(checkAndChange(error)))

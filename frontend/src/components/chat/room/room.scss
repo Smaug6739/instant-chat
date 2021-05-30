@@ -97,8 +97,10 @@
         border-radius: 0.7rem;
       }
       .circle {
-        order: 1;
         @include circle();
+      }
+      .order{
+        order: 1;
       }
     }
     .from-them{
@@ -113,8 +115,10 @@
         border-radius: 0.7rem;
       }
       .circle {
-        order: -1;
         @include circle();
+      }
+      .order{
+        order: -1;
       }
     }
   }

@@ -1,9 +1,9 @@
 //import chats from '@/views/chat/chats/chats.vue';
 const routes = [
 	{
-		path: '/app/:type/:room?',
+		path: '/app/:type?/:room?',
 		name: 'List of chats',
-		component: import('@/views/chat/chats/chats.vue'),
+		component: () => import('@/views/chat/chats/chats.vue'),
 		meta: {
 			admin: false,
 			member: false,

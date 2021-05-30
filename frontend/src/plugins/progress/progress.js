@@ -24,7 +24,7 @@ module.exports = {
 	},
 	stop() {
 		if (this.interval) clearInterval(this.interval)
-		document.getElementById('nprogress').getElementsByClassName('bar')[0].classList.add('end')
+		document.getElementById('nprogress').getElementsByClassName('bar')[0].classList.add('loader-end')
 		setTimeout(() => {
 			document.getElementById('app-loader').innerHTML = ''
 		}, 410)
