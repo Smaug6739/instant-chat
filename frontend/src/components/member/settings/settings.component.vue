@@ -78,7 +78,11 @@
           >Update</span
         >
         <div v-if="alert.type && alert.msg">
-          <Alert :type="alert.type" :message="alert.msg" />
+          <Alert
+            :type="alert.type"
+            :message="alert.msg"
+            @CLOSE_ALERT="closeAlert"
+          />
         </div>
       </div>
     </main>

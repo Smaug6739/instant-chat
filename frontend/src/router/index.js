@@ -4,7 +4,7 @@ import memberRoutes from './member/member';
 import chatRoutes from './auth/chat';
 
 import { getCookie } from '../util/functions';
-import Nprogress from '../plugins/progress/progress'
+import loader from '../plugins/progress/progress.js';
 const routes = [
   {
     path: '/',
@@ -33,13 +33,13 @@ const router = createRouter({
 })
 router.beforeResolve((to, from, next) => {
   if (to.name) {
-    Nprogress.start(document)
+    loader.start()
   }
   next()
 })
 
 router.afterEach(() => {
-  Nprogress.stop()
+  loader.stop()
 })
 
 router.beforeEach((to, _, next) => {

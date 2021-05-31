@@ -15,6 +15,7 @@
   position: relative;
   padding: 1rem 1rem;
   margin-bottom: 1rem;
+  margin-top: 1rem;
   border: 1px solid transparent;
   border-radius: 0.25rem;
 }

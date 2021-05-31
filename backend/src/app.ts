@@ -40,9 +40,17 @@ export class App {
         })
         this.app.use('/cdn', express.static(join(__dirname, '../public/uploads')));
     }
-    private handleMiddlewares(): void {
+    private async handleMiddlewares(): Promise<void> {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.json());
+
+        if (!this.config.production) {
+            const morgan = require('morgan')
+            this.app.use(morgan('dev'))
+            // import('morgan').then(m => this.app.use(m('dev')))
+        }
+
+
         this.app.use(function (req: IObject, res: IObject, next: Function) {
             const origin = req.headers.origin;
             if (origin) res.setHeader('Access-Control-Allow-Origin', origin);
@@ -51,6 +59,7 @@ export class App {
             res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
             next()
         })
+
     }
     private handleEvents(): void {
         const io = new Server(this.httpServer, {

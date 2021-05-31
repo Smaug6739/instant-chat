@@ -34,33 +34,34 @@ export default {
 			body.append('last_name', document.getElementById("form-last_name").value)
 			body.append('phone_number', document.getElementById("form-phone_number").value)
 			body.append('email', document.getElementById("form-email").value)
-			const responce = await fetch(`${this.$store.state.host}api/v1/members/${this.$getUser().id}`, {
+			this.$fetchAPI(`/members/${this.$getUser().id}`, {
 				method: "PUT",
-				credentials: "include",
-				withCredentials: true,
 				body: body,
-			});
-			const result = await responce.json();
-			if (result.status === "success") {
-				this.alert = {
-					type: "success",
-					msg: "Successfully update your account"
-				}
-			} else {
-				this.alert = {
-					type: "alert",
-					msg: "An error occurred while updating your account"
-				}
+			})
+				.then(() => {
+					this.alert = {
+						type: "success",
+						msg: "Successfully update your account"
+					}
+				})
+				.catch(() => {
+					this.alert = {
+						type: "error",
+						msg: "An error occurred while updating your account"
+					}
+				})
+		},
+		closeAlert() {
+			this.alert = {
+				type: null,
+				msg: null
 			}
 		}
 	},
-	async beforeMount() {
-		const res = await fetch(
-			`${this.$store.state.host}api/v1/members/${this.$getUser().id}`, {
-			credentials: "include",
-			withCredentials: true,
-		});
-		const result = await res.json();
-		this.member = result.result;
+	async mounted() {
+		const res = await this.$fetchAPI(`/members/${this.$getUser().id}`)
+		this.member = res
+
 	},
+
 };
