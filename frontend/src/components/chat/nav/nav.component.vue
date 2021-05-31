@@ -6,14 +6,16 @@
       </div>
       <ul>
         <li class="icon">
-          <FriendsIcon />
+          <router-link to="/app/friends" class="link">
+            <FriendsIcon />
+          </router-link>
         </li>
         <li class="icon">
           <router-link to="/app/room" class="link"><ChatsIcon /></router-link>
         </li>
         <li class="icon">
-          <router-link to="/app/settings" class="link"
-            ><SettingsIcon />
+          <router-link to="/app/settings" class="link">
+            <SettingsIcon />
           </router-link>
         </li>
       </ul>

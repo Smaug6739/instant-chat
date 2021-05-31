@@ -1,6 +1,7 @@
 import Loader from "@/components/common/loader.component.vue";
 import ViewChannel from '@/components/chat/room/room.vue'
 import AccountSettings from '@/components/member/settings/settings.component.vue';
+import FriendsScreen from '@/components/chat/friends/friends.component.vue';
 
 import RoomsList from '@/components/chat/nav_rooms/nav_rooms.component.vue';
 import Nav from '@/components/chat/nav/nav.component.vue';
@@ -20,7 +21,8 @@ export default {
 		ViewChannel,
 		RoomsList,
 		Nav,
-		AccountSettings
+		AccountSettings,
+		FriendsScreen
 	},
 	watch: {
 		$route(to) {

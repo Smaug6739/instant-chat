@@ -14,7 +14,7 @@ import './plugins/progress/progress.css';
 
 
 
-import socket from './socket';
+import socket from './plugins/socket';
 
 
 

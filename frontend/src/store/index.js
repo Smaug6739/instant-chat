@@ -1,10 +1,9 @@
 import { createStore } from 'vuex'
-
+import * as config from "../../config"
 export default createStore({
   state: {
-    host: "http://192.168.0.30:3000/",
-    socket: "http://192.168.0.30:3000/socket.io",
-    hostAvatar: "http://192.168.0.30:3000/cdn/avatars/webp/",
+    host: config.ROOT_API,
+    hostAvatar: config.AVATAR_HOST,
     user: {
       id: null,
       username: null,

@@ -1,5 +1,6 @@
 import io from "socket.io-client";
-const socket = io("ws://192.168.0.30:3000", {
+import * as config from "../../config"
+const socket = io(config.WEBSOCKET, {
 	// withCredentials: true,
 	transports: ['websocket']
 });

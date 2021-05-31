@@ -16,7 +16,7 @@
                 />
                 <span
                   v-else
-                  class="circle"
+                  class="circle order"
                   :style="'background-color:' + message.member_color"
                   >{{ message.member_nickname.slice(0, 1) }}</span
                 >
