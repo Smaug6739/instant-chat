@@ -15,7 +15,7 @@ This project is an instant chat with a member area, using socket.io, vuejs and t
 ### Frontend
 
 - Vuejs version 3 with cli
-- Socket.io-client version 3 with cli
+- Socket.io-client version 4
 
 ## How to install
 
