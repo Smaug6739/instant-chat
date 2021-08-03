@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SmaugDev/instant-chat.git"
+    "url": "git+https://github.com/Smaug6739/instant-chat.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SmaugDev/instant-chat/issues"
+    "url": "https://github.com/Smaug6739/instant-chat/issues"
   },
-  "homepage": "https://github.com/SmaugDev/instant-chat#readme",
+  "homepage": "https://github.com/Smaug6739/instant-chat#readme",
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/express": "^4.17.11",
