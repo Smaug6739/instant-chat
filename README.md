@@ -10,7 +10,7 @@ This project is an instant chat with a member area, using socket.io, vuejs and t
 
 - Expressjs version 4
 - Socket.io version 5
-- Jsonwebtoken
+- Authentification: Json Web Token
 
 ### Frontend
 
