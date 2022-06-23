@@ -28,7 +28,7 @@
     "@types/mysql": "^2.15.21",
     "@types/node": "^18.0.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.18"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
